@@ -265,6 +265,82 @@ h1 {
 
 .footer { padding: 24px 0 40px; font-size: 13px; color: var(--ink-soft); }
 
+/* ---------- tableau embed card ---------- */
+
+.tableau-card {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--card);
+  overflow: hidden;
+  box-shadow: 0 1px 0 var(--rule), 0 18px 40px -28px rgba(24, 36, 46, 0.45);
+}
+
+.tableau-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--rule);
+  background: #FAF8F5;
+}
+
+.tableau-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+}
+
+.tableau-tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--card);
+  font-weight: 500;
+  color: var(--sev);
+  letter-spacing: 0.04em;
+}
+
+.tableau-link {
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--freq);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background: rgba(41, 75, 102, 0.06);
+  transition: all 0.15s ease;
+}
+
+.tableau-link:hover {
+  background: var(--freq);
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.tableau-viz-wrapper {
+  width: 100%;
+  min-height: 750px;
+  background: #FFFFFF;
+  position: relative;
+}
+
+tableau-viz {
+  width: 100%;
+  min-height: 820px;
+  height: 850px;
+  display: block;
+}
+
 /* ---------- responsive ---------- */
 
 @media (max-width: 900px) {
