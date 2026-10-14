@@ -1,0 +1,16 @@
+,label,odds_ratio,ci_low,ci_high,p_value
+C(road_user)[T.Passenger],Passenger (vs driver),1.1653,0.9545,1.4226,0.1329
+C(road_user)[T.Pedestrian],Pedestrian (vs driver),9.3219,7.9747,10.8968,0.0
+C(road_user)[T.Bicyclist],Bicyclist (vs driver),4.9268,3.9201,6.1921,0.0
+C(road_user)[T.Motorcyclist],Motorcyclist (vs driver),8.64,7.4592,10.0076,0.0
+C(road_user)[T.Other],Other road user (vs driver),1.2113,0.5643,2.6001,0.6227
+heavy_vehicle,Truck or bus involved,1.5929,1.1502,2.2059,0.0051
+night,Night (8pm-6am),2.0978,1.8917,2.3263,0.0
+weekend,Weekend,1.1863,1.0522,1.3375,0.0052
+unsafe_speed,Cause: unsafe speed,0.8739,0.7481,1.0207,0.0889
+dui,Cause: DUI,2.5165,1.9665,3.2202,0.0
+hit_and_run,Hit-and-run,0.2326,0.135,0.4007,0.0
+covid_2020,Year 2020 (COVID),1.1125,0.9486,1.3047,0.1897
+density_1k,"Population density (+1,000 per sq mi)",0.9596,0.9491,0.9701,0.0
+speed_limit_5,Beat mean speed limit (+5 mph),1.2044,0.9982,1.4531,0.0522
+income_10k,"Beat median income (+$10,000)",0.9947,0.9729,1.0169,0.6354
