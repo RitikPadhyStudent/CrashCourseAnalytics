@@ -19,7 +19,6 @@ python3 analysis/regression/serious_or_fatal/logistic_regression.py
 | File | What it is |
 |------|------------|
 | `odds_ratios.png` | Chart of each input's odds ratio with its 95% confidence interval |
-| `odds_ratios.csv` | The same numbers |
 | `model_summary.txt` | Full model output, fit checks, overlap check (VIF), and the fatal-only version |
 
 ## How to read an odds ratio

@@ -4,7 +4,7 @@
 
 - **Unit:** one SDPD police beat. There are 125 city beats. The 112 beats with at least 50 known-injury records from 2018 to 2025 are used.
 - **Y:** `serious_fatal_rate`, the number of participants with a serious, severe or fatal injury divided by the number of participants with a known injury level, 2018–2025.
-- **Method:** Spearman rank correlation, because many inputs are skewed (density, parking meters, crime). Pearson r is also given in `correlations_with_y.csv`.
+- **Method:** Spearman rank correlation, because many inputs are skewed (density, parking meters, crime). Running `correlation_heatmap.py` also prints Pearson r for comparison.
 
 ## Run it
 
@@ -24,8 +24,6 @@ python3 analysis/correlation/serious_or_fatal/correlation_heatmap.py      # -> h
 | `beat_features.csv` | One row per beat: Y, its numerator and denominator, every input, and `in_analysis` |
 | `correlation_heatmap.png` | Full Spearman matrix, with Y in the first row and column |
 | `y_correlations.png` | Only the correlations with Y, sorted, with significance stars |
-| `correlation_matrix.csv` | The full matrix as numbers |
-| `correlations_with_y.csv` | Spearman and Pearson r with Y, p-values and n |
 
 ## Input variables
 

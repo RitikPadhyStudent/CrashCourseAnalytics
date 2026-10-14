@@ -6,8 +6,6 @@ enough known-injury records to give a stable rate.
 Outputs:
   correlation_heatmap.png   full matrix, Y in the first row and column
   y_correlations.png        just the Y column, sorted, with significance
-  correlation_matrix.csv    the full Spearman matrix
-  correlations_with_y.csv   Spearman and Pearson r with Y, p-values, n
 
 Usage (from the repo root):
   python3 analysis/correlation/serious_or_fatal/correlation_heatmap.py
@@ -194,9 +192,7 @@ def y_heatmap(ytab, n_beats):
 def main():
     data = load()
     corr = data.corr(method="spearman")
-    corr.round(4).to_csv(HERE / "correlation_matrix.csv")
     ytab = y_table(data)
-    ytab.to_csv(HERE / "correlations_with_y.csv", index=False)
     full_heatmap(corr, len(data))
     y_heatmap(ytab, len(data))
     print(ytab[["label", "spearman_rho", "spearman_p", "pearson_r", "n_beats"]].to_string(index=False))

@@ -8,8 +8,7 @@ happened. Beat inputs come from the correlation step, so run
 analysis/correlation/serious_or_fatal/build_beat_features.py first.
 
 Outputs:
-  odds_ratios.csv        odds ratio, 95% CI and p-value for each input
-  odds_ratios.png        the same as a chart
+  odds_ratios.png        odds ratio and 95% CI for each input
   model_summary.txt      full statsmodels output, fit checks, fatal-only model
 
 Usage (from the repo root):
@@ -193,7 +192,6 @@ def main():
     df, dropped = load()
     model = fit(df)
     table = odds_table(model)
-    table.round(4).to_csv(HERE / "odds_ratios.csv")
     plot(table, len(df), int(df["y"].sum()))
 
     auc = roc_auc_score(df["y"], model.predict(df))
