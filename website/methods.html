@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Methods · Crash Course Analytics</title>
+  <link rel="icon" href="data:,">
+  <meta name="description" content="How the San Diego collision map and analysis were built, and their limits.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/story.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar__inner">
+      <a class="brand" href="./" aria-label="Crash Course Analytics home">
+        <svg viewBox="0 0 22 22" width="22" height="22" aria-hidden="true">
+          <rect x="1" y="1" width="9" height="20" rx="2" fill="#294B66"></rect>
+          <rect x="12" y="1" width="9" height="20" rx="2" fill="#B95055"></rect>
+        </svg>
+        <span class="brand__name">Crash Course Analytics</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="./">Home</a>
+        <a href="map.html">Where &amp; when</a>
+        <a href="tableau.html">Who &amp; why</a>
+        <a href="correlation.html">Correlation</a>
+        <a href="regression.html">Regression</a>
+        <a href="methods.html" aria-current="page">Methods</a>
+      </nav>
+      <details class="topmenu">
+        <summary>Menu</summary>
+        <ul>
+          <li><a href="./">Home</a></li>
+          <li><a href="map.html">Where &amp; when</a></li>
+          <li><a href="tableau.html">Who &amp; why</a></li>
+          <li><a href="correlation.html">Correlation</a></li>
+          <li><a href="regression.html">Regression</a></li>
+          <li><a href="methods.html" aria-current="page">Methods</a></li>
+        </ul>
+      </details>
+    </div>
+  </header>
+  <header class="masthead">
+    <div class="wrap">
+      <p class="kicker">Chapter 5 of 5 · How we know</p>
+      <h1>How we know, and what we can't say</h1>
+      <p class="lede">
+        Every chapter of this story rests on choices about what to count and how to measure it.
+        Here is how the numbers were built, chapter by chapter, and what they cannot tell you.
+      </p>
+      <ol class="progress" aria-label="The story"><li class="is-done"><a href="map.html"><span>1</span>Where and when</a></li><li class="is-done"><a href="tableau.html"><span>2</span>Who and why</a></li><li class="is-done"><a href="correlation.html"><span>3</span>The places</a></li><li class="is-done"><a href="regression.html"><span>4</span>Putting it together</a></li><li class="is-current" aria-current="step"><a href="methods.html"><span>5</span>How we know</a></li></ol>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section" aria-labelledby="m-data">
+      <h2 id="m-data" class="section__title"><span>Data</span>What we started with</h2>
+      <div class="methods">
+        <dl>
+          <dt>Collisions</dt>
+          <dd>Traffic collisions recorded by the San Diego Police Department on city streets, 2018–2025: 67,970 collisions and 139,192 people involved. Freeways patrolled by CHP are not included. 2016–2017 are left out because their records are incomplete.</dd>
+          <dt>Injury level</dt>
+          <dd>Each person has an injury level. We group serious, severe and fatal injuries as <em>serious or fatal</em>. About 72% of people have no injury level recorded, which most likely means they were not hurt, so injury rates describe the people who were hurt.</dd>
+          <dt>Outside data</dt>
+          <dd>To describe each police beat we added the US Census American Community Survey (2020–2024), SANDAG roads, bikeways and transit stops, City of San Diego traffic counts, parking meters, zoning and police-beat boundaries, and SDPD crime records (NIBRS, 2020–2025).</dd>
+        </dl>
+        <ul class="limits">
+          <li>Each collision is counted once, even when several people are involved. Each person's injury is counted separately.</li>
+          <li>Severity is a rate (serious or fatal injuries divided by people hurt), so busy and quiet areas can be compared fairly.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="m-map">
+      <h2 id="m-map" class="section__title"><span>Chapter 1</span>Where and when: the beat map</h2>
+      <div class="methods">
+        <dl>
+          <dt>Metrics</dt>
+          <dd>Frequency counts unique collision reports (distinct <code>report_id</code>) per police beat and year. The serious/fatal rate divides participants with serious/severe or fatal injuries by participants with known injury status, shown only for beat-years with at least 30 known injury records.</dd>
+          <dt>Classes</dt>
+          <dd>Classes are relative quintiles of all 2018–2025 beat-years (zero is a separate class for sparse fatal metrics). The breaks are shared across years, so colors are comparable over time.</dd>
+        </dl>
+        <ul class="limits">
+          <li>The maps show observed patterns, not exposure-adjusted risk or causal danger.</li>
+          <li>Beats with no record in a year are grey (<em>No collision summary</em>).</li>
+          <li>Injury status is unknown for most participant records; rates describe the known subset only.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="m-tab">
+      <h2 id="m-tab" class="section__title"><span>Chapters 1–2</span>Tableau dashboards</h2>
+      <div class="methods">
+        <dl>
+          <dt>Dashboards</dt>
+          <dd>Three interactive dashboards built by Kyle VanDillen in Tableau Public from the same SDPD collision records: when fatal collisions happen (chapter 1), fatal vs. non-fatal collisions by road user (chapter 2), and the violations police cited as the cause (chapter 2).</dd>
+          <dt>Numbers</dt>
+          <dd>The figures in each chapter's "What this chapter tells us" box come from our own analysis of the 2018–2025 records of people whose injury level is known, so small differences from the dashboards are possible.</dd>
+        </dl>
+        <ul class="limits">
+          <li>The dashboards show counts and shares as recorded, before taking other factors into account.</li>
+          <li>The cause is the violation the officer cited, not an independent finding of what caused the crash.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="m-cor">
+      <h2 id="m-cor" class="section__title"><span>Chapter 3</span>Correlation</h2>
+      <div class="methods">
+        <dl>
+          <dt>Question</dt>
+          <dd>Do police beats with certain characteristics have a higher share of serious or fatal injuries?</dd>
+          <dt>Unit</dt>
+          <dd>One row per police beat. We used the 112 of 125 beats with at least 50 people with a known injury level, so each beat's rate is stable.</dd>
+          <dt>Outcome</dt>
+          <dd>The beat's serious/fatal injury rate, 2018–2025.</dd>
+          <dt>Inputs</dt>
+          <dd>44 characteristics in six groups: who is involved, when and why crashes happen, the streets, land use, residents, and crime. 17 come from our collision data (one of them also uses SANDAG street lengths) and 27 from the outside sources above.</dd>
+          <dt>Method</dt>
+          <dd>Spearman rank correlation. It ranks the beats from lowest to highest on each variable and checks whether the rankings line up, so a few extreme beats cannot distort the result. Values run from −1 (opposite) to +1 (together). A link counts as clear when p &lt; .05, meaning there is less than a 5% chance of a link that size appearing by luck.</dd>
+        </dl>
+        <ul class="limits">
+          <li>These are patterns between places, not between people. A beat with many pedestrians having lower severity does not mean pedestrians are safer.</li>
+          <li>A correlation does not show cause and effect.</li>
+          <li>Many inputs move together (density, transit stops, intersections, beat area), so they are largely one signal, not separate findings.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="m-reg">
+      <h2 id="m-reg" class="section__title"><span>Chapter 4</span>Regression</h2>
+      <div class="methods">
+        <dl>
+          <dt>Question</dt>
+          <dd>When someone is hurt in a crash, what raises the chance that the injury is serious or fatal, once all the other factors are held equal?</dd>
+          <dt>Unit</dt>
+          <dd>One row per person hurt in a collision, 2018–2025: 38,230 people, of whom 2,033 (5.3%) were seriously hurt or killed.</dd>
+          <dt>Outcome</dt>
+          <dd>Yes or no: was this person seriously hurt or killed?</dd>
+          <dt>Inputs</dt>
+          <dd>11 factors chosen from the project question and road-safety research: road-user type (compared with drivers), truck or bus involved, night (8pm–6am), weekend, unsafe speed, DUI, hit-and-run, the year 2020 (COVID), and the beat's population density, average speed limit and median income. The correlation step was used only to leave out inputs that measure the same thing as another.</dd>
+          <dt>Method</dt>
+          <dd>Logistic regression, the standard tool when the outcome is yes or no. Results are odds ratios: 1 means no effect, 2 means double the odds, 0.5 means half. Errors are grouped by police beat, because people in the same beat share the same beat inputs.</dd>
+          <dt>Checks</dt>
+          <dd>The model ranks who gets seriously hurt fairly well (AUC 0.78, where 0.5 is a coin flip and 1 is perfect). No two inputs overlap too much (every variance inflation factor is below 1.5). Re-running it with only fatal injuries tells the same story.</dd>
+        </dl>
+        <ul class="limits">
+          <li>Hit-and-run looks protective, but 88% of these cases carry the property-damage hit-and-run code, so they are mostly low-harm crashes by how they were recorded.</li>
+          <li>"Unsafe speed" (Vehicle Code 22350) means too fast for conditions. Officers often use it for rear-end crashes in slow traffic, so it is not the same as high speed.</li>
+          <li>The data has no age or sex, which both matter a lot for how badly people are hurt.</li>
+          <li>The results show association, not proof of cause.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+    <nav class="pager wrap" aria-label="Previous and next chapter">
+      <a class="pager__link pager__link--prev" href="regression.html"><span>← Chapter 4 · Regression</span>So who pays the highest price?</a>
+      <a class="pager__link pager__link--next" href="./"><span>The end · back to →</span>Home</a>
+    </nav>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>Police-beat boundaries: City of San Diego open data. Only aggregated beat-year summaries are published here.</p>
+    </div>
+  </footer>
+</body>
+</html>

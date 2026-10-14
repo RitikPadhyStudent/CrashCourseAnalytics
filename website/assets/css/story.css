@@ -1,0 +1,71 @@
+/* Story pieces: chapter progress, end-of-chapter takeaway, start button. Tokens come from style.css. */
+
+/* Chapter progress under each page title */
+.progress {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  max-width: 760px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.progress a {
+  display: block;
+  padding-top: 8px;
+  border-top: 3px solid var(--rule);
+  font: 500 12px/1.35 var(--sans);
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.progress span { display: block; font: 500 11px var(--mono); letter-spacing: 0.06em; }
+.progress .is-done a { border-top-color: var(--freq); }
+.progress .is-current a { border-top-color: var(--sev); color: var(--ink); font-weight: 600; }
+.progress a:hover { color: var(--ink); }
+.progress a:focus-visible { outline: 2px solid var(--sev); outline-offset: 2px; }
+
+/* End-of-chapter summary and the question that leads on */
+.takeaway {
+  margin: 8px 0 32px;
+  padding: 24px 28px;
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--sev);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+.takeaway__title { margin: 0 0 12px; font: 600 1.35rem var(--serif); }
+.takeaway ul { margin: 0; padding-left: 20px; max-width: 80ch; }
+.takeaway li { font-size: 15.5px; }
+.takeaway li + li { margin-top: 6px; }
+.takeaway__next {
+  margin: 20px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  max-width: 80ch;
+  font: 400 1.15rem/1.45 var(--serif);
+}
+.takeaway__next span {
+  display: block;
+  margin-bottom: 4px;
+  font: 500 11px var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sev);
+}
+.takeaway__next a { display: inline-block; margin-top: 10px; font: 600 15px var(--sans); text-decoration: none; }
+.takeaway__next a:hover { text-decoration: underline; }
+
+/* Home page chapter cards: five in a row */
+.cards.cards--story { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.home-text--wide { max-width: 70ch; margin-bottom: 20px; }
+
+@media (max-width: 1000px) {
+  .cards.cards--story { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .progress { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+  .progress a { font-size: 0; } /* numbers only on small screens */
+  .progress span { font-size: 12px; }
+  .cards.cards--story { grid-template-columns: 1fr; }
+  .takeaway { padding: 20px; }
+}

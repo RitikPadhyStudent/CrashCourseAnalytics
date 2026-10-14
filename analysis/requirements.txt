@@ -1,0 +1,8 @@
+pandas>=2.0
+geopandas>=0.14
+pyogrio
+shapely>=2.0
+scipy
+matplotlib
+requests
+statsmodels

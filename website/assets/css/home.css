@@ -1,0 +1,97 @@
+/* Home page. Tokens come from style.css. */
+
+/* Key numbers */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+.stats li { padding: 20px 22px; }
+.stats li + li { border-left: 1px solid var(--rule); }
+.stats b { display: block; font: 600 2.2rem/1.1 var(--serif); font-variant-numeric: tabular-nums; }
+.stats span { display: block; margin-top: 6px; font-size: 14px; color: var(--ink-soft); }
+
+/* Two-column text blocks */
+.home-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 40px; align-items: start; }
+.home-text { margin: 0; max-width: 60ch; font-size: 1.05rem; }
+
+.facets, .approach, .team, .cards, .findings { margin: 0; padding: 0; list-style: none; }
+.facets { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; }
+.facets li { padding-top: 10px; border-top: 2px solid var(--ink); font-size: 15px; }
+.facets b { display: block; margin-bottom: 2px; font: 600 1.15rem var(--serif); }
+
+/* Findings */
+.findings { counter-reset: f; display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
+.findings li {
+  position: relative;
+  padding: 14px 0 16px 40px;
+  border-top: 1px solid var(--rule);
+  font-size: 15.5px;
+}
+.findings li::before {
+  counter-increment: f;
+  content: counter(f, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 17px;
+  font: 500 11px var(--mono);
+  color: var(--sev);
+}
+.findings b { display: block; margin-bottom: 4px; font: 600 1.15rem/1.3 var(--serif); }
+.findings a { display: inline-block; margin-top: 6px; font-size: 14px; font-weight: 500; text-decoration: none; }
+.findings a:hover { text-decoration: underline; }
+
+/* Page cards */
+.cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  padding: 18px 20px 20px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.card:hover { border-color: var(--ink); box-shadow: 0 18px 40px -28px rgba(24, 36, 46, 0.6); transform: translateY(-2px); }
+.card:focus-visible { outline: 2px solid var(--sev); outline-offset: 2px; }
+.card b { font: 600 1.15rem/1.3 var(--serif); }
+.card span:last-child { font-size: 14px; color: var(--ink-soft); }
+.card__tag { font: 500 11px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--sev); }
+
+/* How we did it */
+.approach li { padding: 10px 0; border-top: 1px solid var(--rule); font-size: 15px; }
+.approach b { font-weight: 600; }
+.sources { padding: 18px 20px; background: var(--card); border-left: 3px solid var(--freq); }
+.sources__title { margin: 0 0 8px; font: 500 12px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+.sources ul { margin: 0; padding-left: 18px; font-size: 14.5px; }
+.sources li + li { margin-top: 4px; }
+.sources__more { margin: 12px 0 0; font-size: 14px; font-weight: 500; }
+
+/* Team */
+.team { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.team li { padding-top: 12px; border-top: 2px solid var(--ink); font-size: 14.5px; color: var(--ink-soft); }
+.team b { display: block; font: 600 1.15rem var(--serif); color: var(--ink); }
+.team span { display: block; }
+.team__role { margin: 2px 0 6px; font: 500 11px var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--sev); }
+
+@media (max-width: 1000px) {
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .stats li + li { border-left: 0; }
+  .stats li { border-bottom: 1px solid var(--rule); }
+  .cards, .team { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .stats { grid-template-columns: 1fr 1fr; }
+  .home-split, .findings, .facets { grid-template-columns: 1fr; }
+  .cards, .team { grid-template-columns: 1fr; }
+}
