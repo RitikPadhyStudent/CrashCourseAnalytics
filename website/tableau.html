@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fatal vs Non-Fatal · Crash Course Analytics</title>
+  <link rel="icon" href="data:,">
+  <meta name="description" content="Tableau Public dashboard comparing fatal and non-fatal collisions in San Diego.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/story.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar__inner">
+      <a class="brand" href="./" aria-label="Crash Course Analytics home">
+        <svg viewBox="0 0 22 22" width="22" height="22" aria-hidden="true">
+          <rect x="1" y="1" width="9" height="20" rx="2" fill="#294B66"></rect>
+          <rect x="12" y="1" width="9" height="20" rx="2" fill="#B95055"></rect>
+        </svg>
+        <span class="brand__name">Crash Course Analytics</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="./">Home</a>
+        <a href="map.html">Beat map</a>
+        <a href="tableau.html" aria-current="page">Fatal vs non-fatal</a>
+        <a href="correlation.html">Correlation</a>
+        <a href="regression.html">Regression</a>
+        <a href="methods.html">Methods</a>
+      </nav>
+      <details class="topmenu">
+        <summary>Menu</summary>
+        <ul>
+          <li><a href="./">Home</a></li>
+          <li><a href="map.html">Beat map</a></li>
+          <li><a href="tableau.html" aria-current="page">Fatal vs non-fatal</a></li>
+          <li><a href="correlation.html">Correlation</a></li>
+          <li><a href="regression.html">Regression</a></li>
+          <li><a href="methods.html">Methods</a></li>
+        </ul>
+      </details>
+    </div>
+  </header>
+  <header class="masthead">
+    <div class="wrap">
+      <p class="kicker">Chapter 2 of 5 · Who gets hurt</p>
+      <h1>Who gets hurt, and how badly?</h1>
+      <p class="lede">
+        Interactive road-user and injury severity exploration across San Diego, embedded from Tableau Public.
+      </p>
+      <ol class="progress" aria-label="The story"><li class="is-done"><a href="map.html"><span>1</span>Where and when</a></li><li class="is-current" aria-current="step"><a href="tableau.html"><span>2</span>Who gets hurt</a></li><li><a href="correlation.html"><span>3</span>The places</a></li><li><a href="regression.html"><span>4</span>Putting it together</a></li><li><a href="methods.html"><span>5</span>How we know</a></li></ol>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section">
+      <div class="tableau-card">
+        <div class="tableau-header">
+          <div class="tableau-meta">
+            <span class="tableau-tag">Tableau Public</span>
+            <span>Fatal vs. Non-Fatal Comparison</span>
+          </div>
+          <a href="https://public.tableau.com/app/profile/kyle.vandillen/viz/Fatalvs_NonFatal/Fatalvs_Non-Fatal" 
+             target="_blank" rel="noopener noreferrer" class="tableau-link">
+            Open in Tableau Public ↗
+          </a>
+        </div>
+        <div class="tableau-viz-wrapper">
+          <tableau-viz id="tableauViz" 
+            src="https://public.tableau.com/views/Fatalvs_NonFatal/Fatalvs_Non-Fatal" 
+            device="default"
+            toolbar="bottom" 
+            hide-tabs>
+          </tableau-viz>
+        </div>
+      </div>
+    </section>
+    <section class="takeaway" aria-labelledby="takeaway-heading">
+      <h2 id="takeaway-heading" class="takeaway__title">What this chapter tells us</h2>
+      <ul>
+        <li>Of the people hurt in crashes, 14.9% of pedestrians and 14.5% of motorcyclists were seriously hurt or killed.</li>
+        <li>For bicyclists it was 8.2%. For drivers it was 2.2%, and for passengers 2.7%.</li>
+        <li>These are raw shares. They do not yet account for when the crash happened, what caused it, or where.</li>
+      </ul>
+      <p class="takeaway__next"><span>The next question</span>Is it about the people, or about the places they are in? Next we look at the places.
+        <a href="correlation.html">Chapter 3: What kind of places have more severe crashes? →</a></p>
+    </section>
+  </main>
+
+    <nav class="pager wrap" aria-label="Previous and next chapter">
+      <a class="pager__link pager__link--prev" href="map.html"><span>← Chapter 1 · Beat map</span>Where and when do crashes happen?</a>
+      <a class="pager__link pager__link--next" href="correlation.html"><span>Chapter 3 · Correlation →</span>What kind of places have more severe crashes?</a>
+    </nav>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>Dashboard by the Crash Course Analytics team on <a href="https://public.tableau.com/app/profile/kyle.vandillen/viz/Fatalvs_NonFatal/Fatalvs_Non-Fatal">Tableau Public</a>. Data: San Diego Police Department traffic collision records.</p>
+    </div>
+  </footer>
+</body>
+</html>

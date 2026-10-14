@@ -1,0 +1,119 @@
+/* Regression and correlation charts. Classes use the "an" prefix; tokens come from style.css. */
+
+.an {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: 0 1px 0 var(--rule), 0 18px 40px -28px rgba(24, 36, 46, 0.45);
+}
+.an__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 32px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.an__plot { padding: 16px 20px 4px; min-width: 0; }
+.an__plot svg { display: block; overflow: visible; }
+.an__plot--scroll { overflow-x: auto; }
+.an__split { display: grid; grid-template-columns: minmax(0, 1fr) 360px; }
+.an__side { padding: 16px 20px; border-left: 1px solid var(--rule); min-width: 0; }
+.an__side svg { display: block; }
+
+.an-intro { max-width: 70ch; margin: 0 0 20px; color: var(--ink-soft); }
+.an-note { margin: 0; padding: 10px 20px 16px; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+.an__side .an-note { padding: 8px 0 0; }
+
+/* Legend and color scale */
+.an-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  padding: 14px 20px 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.an-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.an-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.an-dot--hollow { background: var(--card); border: 2.5px solid; }
+.an-scale {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px 0;
+  font: 400 11px var(--mono);
+  color: var(--ink-soft);
+}
+.an-scale i { display: block; width: 180px; max-width: 40vw; height: 10px; border-radius: 2px; }
+
+.an-check { display: inline-flex; align-items: center; gap: 7px; margin-top: 10px; font-size: 13px; cursor: pointer; }
+.an-check input { accent-color: var(--ink); margin: 0; }
+
+/* SVG text */
+.an-axis { font: 400 11px var(--mono); fill: var(--ink-soft); }
+.an-axis--note { font-size: 10.5px; }
+.an-group { font: 500 11px var(--mono); letter-spacing: 0.08em; fill: var(--sev); }
+.an-label { font: 400 13.5px var(--sans); fill: var(--ink); }
+.an-label--sm { font-size: 11.5px; }
+.an-label--ns { fill: var(--ink-soft); }
+.an-label--y { font-weight: 600; }
+.an-label.is-hot { fill: var(--sev); font-weight: 600; }
+.an-value { font: 500 12.5px var(--mono); fill: var(--ink); }
+.an-cell__num { font: 400 9.5px var(--mono); pointer-events: none; }
+
+/* Hover and selection */
+.an-row { cursor: pointer; outline: none; }
+.an-row__hit { fill: transparent; }
+.an-row:hover .an-row__hit, .an-row:focus-visible .an-row__hit { fill: #F1EEE7; }
+.an-row.is-selected .an-row__hit { fill: #F1EEE7; }
+.an-row.is-selected .an-label { font-weight: 600; }
+.an-cell { cursor: pointer; }
+.an-cell:hover rect, .an-cell.is-selected rect { stroke: var(--ink); stroke-width: 2; }
+.an-pt { fill: var(--freq); fill-opacity: 0.7; stroke: var(--card); stroke-width: 1.5; cursor: pointer; }
+.an-pt:hover { fill: #E8A317; fill-opacity: 1; }
+
+/* Scatter panel */
+.an-side__head { margin-bottom: 10px; }
+.an-side__title { margin: 0; font: 600 1rem/1.3 var(--serif); }
+.an-side__meta { margin: 4px 0 0; font-size: 13px; color: var(--ink-soft); }
+
+/* Tooltip */
+.an-tip {
+  position: fixed;
+  z-index: 1200;
+  max-width: 300px;
+  padding: 10px 12px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: 0 10px 30px -12px rgba(24, 36, 46, 0.45);
+  font: 13px/1.45 var(--sans);
+  color: var(--ink);
+  pointer-events: none;
+}
+.an-tip p { margin: 0; }
+.an-tip p + p { margin-top: 5px; }
+.an-tip__title { font: 600 14px var(--serif); }
+.an-tip__soft { color: var(--ink-soft); font-size: 12px; }
+.an-tip__note { padding-top: 6px; border-top: 1px solid var(--rule); color: var(--ink-soft); font-size: 12px; }
+
+/* Table view */
+.an-table { border-top: 1px solid var(--rule); padding: 12px 20px 16px; font-size: 13.5px; }
+.an-table summary { cursor: pointer; font-weight: 500; }
+.an-table__scroll { overflow-x: auto; margin-top: 10px; }
+.an-table table { border-collapse: collapse; width: 100%; }
+.an-table th, .an-table td { padding: 5px 10px 5px 0; border-bottom: 1px solid var(--grid, #ECE8DF); text-align: left; white-space: nowrap; }
+.an-table thead th { font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); }
+.an-table tbody th { font-weight: 400; }
+.an-table td { font-family: var(--mono); font-size: 12.5px; }
+
+/* Plain-language guide next to each chart */
+.an-guide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin: 24px 0 0; padding: 0; list-style: none; }
+.an-guide li { padding: 12px 0 0; border-top: 2px solid var(--ink); font-size: 14.5px; }
+.an-guide b { display: block; margin-bottom: 4px; font: 600 1rem var(--serif); }
+
+@media (max-width: 900px) {
+  .an__split { grid-template-columns: 1fr; }
+  .an__side { border-left: 0; border-top: 1px solid var(--rule); }
+  .an-guide { grid-template-columns: 1fr; }
+}
