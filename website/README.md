@@ -1,6 +1,21 @@
-# San Diego Police-Beat Collision Dashboard
+# Crash Course Analytics website
 
-An interactive, static web dashboard (plain HTML, CSS, JavaScript, Leaflet and Chart.js) for exploring **collision frequency and injury severity by San Diego police beat, 2018–2025**.
+A static website (plain HTML, CSS and JavaScript) that tells the project's story in five chapters, one page each. It is deployed on Vercel from the `website/` folder on `main`.
+
+| Page | Chapter | What it shows |
+|---|---|---|
+| `index.html` | Home | The project question, key numbers, the five chapters, the short version of the findings, the team |
+| `map.html` | 1 · Where & when | The police-beat map (below), its findings, and Kyle's date & time Tableau dashboard |
+| `tableau.html` | 2 · Who & why | Kyle's fatal vs. non-fatal and charge-description Tableau dashboards |
+| `correlation.html` | 3 · Correlation | Interactive correlations between each beat's serious/fatal injury rate and 44 beat characteristics |
+| `regression.html` | 4 · Regression | Interactive odds-ratio chart from the logistic regression |
+| `methods.html` | 5 · Methods | How every chapter's numbers were built, and their limits |
+
+Every page shares the sticky top bar (`assets/css/nav.css`). Chapter pages also show a progress bar, a "What this chapter tells us" box and previous/next links (`assets/css/story.css`). The chapter text lives in each page's HTML.
+
+## The beat map (chapter 1)
+
+An interactive dashboard (Leaflet and Chart.js) for exploring **collision frequency and injury severity by San Diego police beat, 2018–2025**.
 
 What a visitor can do:
 
@@ -10,7 +25,7 @@ What a visitor can do:
 - **Rank beats:** the panel lists the top 10 beats for the current metric and year. Click one to zoom to it.
 - **Jump to a year from the chart:** click a year in the city-wide trend chart to show that year on the map.
 
-The site publishes **aggregated beat-year summaries only**. It contains no collision-level or participant-level records.
+The site publishes **aggregated summaries only** (beat-years, beats and model results). It contains no collision-level or participant-level records.
 
 ## How to run in on your computer for Ritik and Kyle
 
@@ -33,15 +48,27 @@ Opening `index.html` by double-clicking does **not** work: browsers block loadin
 
 ```
 website/
-├── index.html                      Page layout, findings and methods text, dashboard bootstrap call
+├── index.html                      Home page
+├── map.html                        Chapter 1: beat map, its findings, date & time dashboard
+├── tableau.html                    Chapter 2: Tableau dashboards
+├── correlation.html                Chapter 3: correlation charts
+├── regression.html                 Chapter 4: regression chart
+├── methods.html                    Chapter 5: methods and limitations
 ├── assets/
-│   ├── css/style.css               All styles (dashboard classes use the "cd-" prefix)
-│   └── js/app.js                   Dashboard logic; exposes window.CollisionDashboard
+│   ├── css/style.css               Base styles, map dashboard ("cd-" prefix) and Tableau cards
+│   ├── css/nav.css                 Top bar and previous/next links
+│   ├── css/story.css               Chapter progress bar and takeaway box
+│   ├── css/home.css                Home page
+│   ├── css/analysis.css            Correlation and regression charts ("an-" prefix)
+│   ├── js/app.js                   Map dashboard logic; exposes window.CollisionDashboard
+│   └── js/analysis.js              Correlation and regression charts; exposes window.AnalysisCharts
 ├── data/
-│   ├── police_beats_web.geojson    One simplified polygon per police beat (beat 0 excluded)
+│   ├── police_beats_web.geojson    One simplified polygon per SDPD police beat (125 beats)
 │   ├── map_properties.json         Beat-year summaries 2018-2025, metric definitions, class breaks
 │   ├── annual_trends.json          City-wide annual totals 2018-2025
-│   └── insights.json               Findings shown below the map (generated)
+│   ├── insights.json               Findings shown below the map (generated)
+│   ├── correlation.json            Correlation matrix and beat values (analysis/export_website_data.py)
+│   └── regression.json             Odds ratios for both models (analysis/export_website_data.py)
 └── README.md
 ```
 
@@ -53,9 +80,11 @@ The ArcGIS Pro project (`Spatial_Rong/`) is separate and is not used or modified
 
 | Field | Meaning |
 |---|---|
-| `police_beat` | Integer police-beat code; the join key. One feature per beat, beat 0 excluded. |
+| `police_beat` | Integer police-beat code; the join key. One feature per SDPD beat (125). |
 
-The geometry comes from `code/data/processed/spatial/police_beats_2016_analysis.geojson`. It is dissolved by beat, simplified (tolerance ≈ 20 m), snapped to 1e-5°, validated, and stored in WGS84.
+The geometry is built by `scripts/build_police_beats_web.py` from the City of San Diego police-beat file, keeping **SDPD beats only** (`div` > 0). It is dissolved by beat, simplified (about 12 m), rounded to 1e-5° and stored in WGS84.
+
+**Why SDPD only:** the city file also contains county sheriff beats that reuse SDPD beat numbers (821 is both Rolando and Santa Ysabel). The earlier geometry, from `police_beats_2016_analysis.geojson`, used the county polygon for 83 of the 125 SDPD beats, so their collisions were drawn up to 57 miles away. Do not rebuild the geometry from that file.
 
 ### `map_properties.json`
 
@@ -156,7 +185,7 @@ The host must be able to `fetch` from `dataUrl`; GitHub Pages allows cross-origi
 - Police-beat representative coordinates are not exact collision locations.
 - The maps show observed patterns. They do not estimate causal danger or individual crash risk.
 - 2016 and 2017 are excluded. 2017 has an unusually low number of records (240 reports, no rate-eligible beat), and 2016 is also well below later years. The cut-off is `FIRST_YEAR = 2018` in `code/build_website_data.py`.
-- Six beat codes (71, 200, 600, 760, 904, 999) have records but no polygon, so they are not drawn.
+- Beat codes that are not SDPD beats (for example 71, 200, 600, 760, 904, 999, and a few county beat numbers with one to four records each) have no polygon, so they are not drawn.
 
 ## Basemap attribution
 
@@ -167,5 +196,5 @@ The basemap is © [OpenStreetMap](https://www.openstreetmap.org/copyright) contr
 **Never copy collision-level or participant-level files into `website/`.** That includes anything under `code/data/raw/`, `code/data/processed/*.csv`, `code/data/processed/yearly/` and `Datasets/`. Only the aggregated outputs of `code/build_website_data.py` belong here. Before publishing, check:
 
 ```bash
-ls website/data   # expect exactly the four files listed above
+ls website/data   # expect exactly the six files listed above
 ```

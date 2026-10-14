@@ -265,7 +265,46 @@ h1 {
 
 .footer { padding: 24px 0 40px; font-size: 13px; color: var(--ink-soft); }
 
-/* ---------- tableau embed card ---------- */
+/* ---------- tableau embed cards & navigation ---------- */
+
+.tableau-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 10px;
+  padding: 12px 18px;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+
+.tableau-nav__label {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.tableau-nav__btn {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--freq);
+  background: rgba(41, 75, 102, 0.07);
+  padding: 5px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.tableau-nav__btn:hover {
+  background: var(--freq);
+  color: #FFFFFF;
+  text-decoration: none;
+}
 
 .tableau-card {
   border: 1px solid var(--rule);
