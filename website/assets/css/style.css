@@ -265,7 +265,7 @@ h1 {
 
 .footer { padding: 24px 0 40px; font-size: 13px; color: var(--ink-soft); }
 
-/* ---------- tableau embed cards ---------- */
+/* ---------- tableau embed card ---------- */
 
 .tableau-card {
   border: 1px solid var(--rule);
