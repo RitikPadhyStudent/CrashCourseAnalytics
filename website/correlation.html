@@ -3,29 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Correlation · Crash Course Analytics</title>
-  <link rel="icon" href="data:,">
-  <meta name="description" content="Spearman correlations between serious/fatal injury rates and the characteristics of San Diego police beats.">
+  <title>What kind of places have more severe crashes? Crash Course Analytics</title>
+  <meta name="description" content="Spearman correlations between the serious and fatal injury rate of each San Diego police beat and 44 beat characteristics.">
+  <link rel="canonical" href="https://crashcourseanalytics-website.vercel.app/correlation.html">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Crash Course Analytics">
+  <meta property="og:title" content="What kind of places have more severe crashes? Crash Course Analytics">
+  <meta property="og:description" content="Spearman correlations between the serious and fatal injury rate of each San Diego police beat and 44 beat characteristics.">
+  <meta property="og:url" content="https://crashcourseanalytics-website.vercel.app/correlation.html">
+  <meta property="og:image" content="https://crashcourseanalytics-website.vercel.app/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>document.documentElement.classList.add("js");</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/nav.css">
-  <link rel="stylesheet" href="assets/css/story.css">
-  <link rel="stylesheet" href="assets/css/analysis.css">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/chapter.css">
+  <link rel="stylesheet" href="assets/css/charts.css">
+  <script src="assets/js/site.js" defer></script>
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap topbar__inner">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="nav">
+    <div class="nav__bar">
       <a class="brand" href="./" aria-label="Crash Course Analytics home">
-        <svg viewBox="0 0 22 22" width="22" height="22" aria-hidden="true">
-          <rect x="1" y="1" width="9" height="20" rx="2" fill="#294B66"></rect>
-          <rect x="12" y="1" width="9" height="20" rx="2" fill="#B95055"></rect>
+        <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true">
+          <rect x="1" y="3" width="8" height="14" rx="2" fill="#294B66"></rect>
+          <rect x="11" y="3" width="8" height="14" rx="2" fill="#B95055"></rect>
         </svg>
-        <span class="brand__name">Crash Course Analytics</span>
+        Crash Course Analytics
       </a>
-      <nav class="topnav" aria-label="Primary">
+      <nav class="nav__links" aria-label="Primary">
         <a href="./">Home</a>
         <a href="map.html">Where &amp; when</a>
         <a href="tableau.html">Who &amp; why</a>
@@ -33,61 +44,71 @@
         <a href="regression.html">Regression</a>
         <a href="methods.html">Methods</a>
       </nav>
-      <details class="topmenu">
-        <summary>Menu</summary>
-        <ul>
-          <li><a href="./">Home</a></li>
-          <li><a href="map.html">Where &amp; when</a></li>
-          <li><a href="tableau.html">Who &amp; why</a></li>
-          <li><a href="correlation.html" aria-current="page">Correlation</a></li>
-          <li><a href="regression.html">Regression</a></li>
-          <li><a href="methods.html">Methods</a></li>
-        </ul>
-      </details>
+      <button class="nav__toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Open menu"><span></span><span></span></button>
     </div>
   </header>
-  <header class="masthead">
-    <div class="wrap">
-      <p class="kicker">Chapter 3 of 5 · The places</p>
-      <h1>What kind of places have more severe crashes?</h1>
-      <p class="lede">
-        A correlation is a number from −1 to +1 that shows whether two things rise and fall together across police beats.
-        Here we compare each beat's serious/fatal injury rate with 44 characteristics, from our collision data and from outside sources
-        (Census, SANDAG roads, City of San Diego, SDPD crime data). Switch to the heatmap to see every pair at once.
-      </p>
-      <ol class="progress" aria-label="The story"><li class="is-done"><a href="map.html"><span>1</span>Where and when</a></li><li class="is-done"><a href="tableau.html"><span>2</span>Who and why</a></li><li class="is-current" aria-current="step"><a href="correlation.html"><span>3</span>The places</a></li><li><a href="regression.html"><span>4</span>Putting it together</a></li><li><a href="methods.html"><span>5</span>How we know</a></li></ol>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <section class="section">
-      <div id="correlation-chart"></div>
-      <ul class="an-guide">
-        <li><b>Red or +</b>Both rise together: beats with more of one tend to have more of the other.</li>
-        <li><b>Blue or −</b>Opposite: as one rises, the other tends to fall.</li>
-        <li><b>Not cause and effect</b>These are patterns between places, not proof that one thing causes the other.</li>
-      </ul>
-    </section>
-    <section class="takeaway" aria-labelledby="takeaway-heading">
-      <h2 id="takeaway-heading" class="takeaway__title">What this chapter tells us</h2>
+  <div class="menu" id="menu">
+    <nav aria-label="Menu">
       <ul>
-        <li>Denser beats have a lower share of severe injuries. This is the strongest link we found (−0.35).</li>
-        <li>Larger, spread-out beats, and beats with more unsafe-speed crashes, have a higher share.</li>
-        <li>Most other characteristics, like income, poverty and traffic volume, show no clear link.</li>
+      <li><a href="./">Home</a></li>
+      <li><a href="map.html">Where &amp; when</a></li>
+      <li><a href="tableau.html">Who &amp; why</a></li>
+      <li><a href="correlation.html" aria-current="page">Correlation</a></li>
+      <li><a href="regression.html">Regression</a></li>
+      <li><a href="methods.html">Methods</a></li>
       </ul>
-      <p class="takeaway__next"><span>The next question</span>Places explain only part of it, and many of these characteristics overlap. To see what matters on its own, we test everything together.
-        <a href="regression.html">Chapter 4: So who pays the highest price? →</a></p>
-    </section>
-  </main>
-
-    <nav class="pager wrap" aria-label="Previous and next chapter">
-      <a class="pager__link pager__link--prev" href="tableau.html"><span>← Chapter 2 · Who &amp; why</span>Who gets hurt, and why?</a>
-      <a class="pager__link pager__link--next" href="regression.html"><span>Chapter 4 · Regression →</span>So who pays the highest price?</a>
     </nav>
+  </div>
+  <main id="main">
+    <section class="page-head">
+      <div class="wrap">
+        <p class="eyebrow">Chapter 3 of 5</p>
+        <h1 class="gradient-text">What kind of places<br> have more severe crashes?</h1>
+        <p class="lead">A correlation is a number from &minus;1 to +1 that shows whether two things rise and fall together. Here we compare each police beat&rsquo;s serious injury rate with 44 characteristics, from our collision data and from the Census, SANDAG, the City of San Diego and SDPD crime records.</p>
+        <ol class="progress" aria-label="Chapters"><li class="is-done"><a href="map.html"><i></i><span>1. Where and when</span></a></li><li class="is-done"><a href="tableau.html"><i></i><span>2. Who and why</span></a></li><li class="is-current"><a href="correlation.html" aria-current="step"><i></i><span>3. The places</span></a></li><li class=""><a href="regression.html"><i></i><span>4. Putting it together</span></a></li><li class=""><a href="methods.html"><i></i><span>5. How we know</span></a></li></ol>
+      </div>
+    </section>
 
+    <section class="section section--flush">
+      <div class="wrap">
+        <div id="correlation-chart" class="chart-loading" aria-busy="true"><div class="skeleton"></div></div>
+        <ul class="guide reveal">
+          <li class="card"><h3 class="title-3">Red, or +</h3><p class="body-6">Both rise together: beats with more of one tend to have more of the other.</p></li>
+          <li class="card"><h3 class="title-3">Blue, or &minus;</h3><p class="body-6">Opposite: as one rises, the other tends to fall.</p></li>
+          <li class="card"><h3 class="title-3">Not cause and effect</h3><p class="body-6">These are patterns between places, not proof that one thing causes the other.</p></li>
+        </ul>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="takeaway card reveal">
+          <h2 class="heading-5">What this chapter tells us</h2>
+          <ul>
+          <li>Denser beats have a lower share of severe injuries. This is the strongest link we found (&minus;0.35).</li>
+          <li>Larger, spread out beats, and beats with more unsafe speed crashes, have a higher share.</li>
+          <li>Most other characteristics, like income, poverty and traffic volume, show no clear link.</li>
+          </ul>
+          <div class="takeaway__next">
+            <p class="caption-3">The next question</p>
+            <p class="title-2">Places explain only part of it, and many of these characteristics overlap. To see what matters on its own, we test everything together.</p>
+            <a class="btn btn--primary" href="regression.html">Chapter 4: putting it together <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <nav class="wrap pager" aria-label="Previous and next chapter">
+      <a class="pager__link card" href="tableau.html"><span class="caption-4"><i class="ph ph-arrow-left" aria-hidden="true"></i> Chapter 2</span><span class="title-2">Who gets hurt, and why?</span></a>
+      <a class="pager__link pager__link--next card" href="regression.html"><span class="caption-4">Chapter 4 <i class="ph ph-arrow-right" aria-hidden="true"></i></span><span class="title-2">So who pays the highest price?</span></a>
+    </nav>
+  </main>
   <footer class="footer">
-    <div class="wrap">
-      <p>Data: San Diego Police Department collision and NIBRS crime records; Census ACS 2020–2024; SANDAG roads, bikeways and transit stops; City of San Diego traffic counts, parking meters, zoning and police-beat boundaries.</p>
+    <div class="wrap footer__inner">
+      <p>Crash Course Analytics. A study of serious and fatal injuries in San Diego traffic collisions, 2018 to 2025. Only aggregated summaries are published on this site.</p>
+      <nav aria-label="Footer">
+        <a href="methods.html">Methods</a>
+        <a href="https://github.com/RitikPadhyStudent/CrashCourseAnalytics/blob/main/documentation/data_notes.md">Data notes</a>
+        <a href="https://github.com/RitikPadhyStudent/CrashCourseAnalytics">Source code</a>
+      </nav>
     </div>
   </footer>
   <script src="assets/js/analysis.js"></script>

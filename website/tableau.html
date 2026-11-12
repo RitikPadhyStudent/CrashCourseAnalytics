@@ -3,30 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Who and Why · Crash Course Analytics</title>
-  <link rel="icon" href="data:,">
-  <meta name="description" content="Tableau Public dashboard comparing fatal and non-fatal collisions in San Diego.">
+  <title>Who gets hurt, and why? Crash Course Analytics</title>
+  <meta name="description" content="Fatal and nonfatal San Diego collisions by road user, and the violations police cited as the cause.">
+  <link rel="canonical" href="https://crashcourseanalytics-website.vercel.app/tableau.html">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Crash Course Analytics">
+  <meta property="og:title" content="Who gets hurt, and why? Crash Course Analytics">
+  <meta property="og:description" content="Fatal and nonfatal San Diego collisions by road user, and the violations police cited as the cause.">
+  <meta property="og:url" content="https://crashcourseanalytics-website.vercel.app/tableau.html">
+  <meta property="og:image" content="https://crashcourseanalytics-website.vercel.app/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>document.documentElement.classList.add("js");</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
   <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/analysis.css">
-  <link rel="stylesheet" href="assets/css/nav.css">
-  <link rel="stylesheet" href="assets/css/story.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/chapter.css">
+  <script src="assets/js/site.js" defer></script>
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap topbar__inner">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="nav">
+    <div class="nav__bar">
       <a class="brand" href="./" aria-label="Crash Course Analytics home">
-        <svg viewBox="0 0 22 22" width="22" height="22" aria-hidden="true">
-          <rect x="1" y="1" width="9" height="20" rx="2" fill="#294B66"></rect>
-          <rect x="12" y="1" width="9" height="20" rx="2" fill="#B95055"></rect>
+        <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true">
+          <rect x="1" y="3" width="8" height="14" rx="2" fill="#294B66"></rect>
+          <rect x="11" y="3" width="8" height="14" rx="2" fill="#B95055"></rect>
         </svg>
-        <span class="brand__name">Crash Course Analytics</span>
+        Crash Course Analytics
       </a>
-      <nav class="topnav" aria-label="Primary">
+      <nav class="nav__links" aria-label="Primary">
         <a href="./">Home</a>
         <a href="map.html">Where &amp; when</a>
         <a href="tableau.html" aria-current="page">Who &amp; why</a>
@@ -34,102 +44,98 @@
         <a href="regression.html">Regression</a>
         <a href="methods.html">Methods</a>
       </nav>
-      <details class="topmenu">
-        <summary>Menu</summary>
-        <ul>
-          <li><a href="./">Home</a></li>
-          <li><a href="map.html">Where &amp; when</a></li>
-          <li><a href="tableau.html" aria-current="page">Who &amp; why</a></li>
-          <li><a href="correlation.html">Correlation</a></li>
-          <li><a href="regression.html">Regression</a></li>
-          <li><a href="methods.html">Methods</a></li>
-        </ul>
-      </details>
+      <button class="nav__toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Open menu"><span></span><span></span></button>
     </div>
   </header>
-  <header class="masthead">
-    <div class="wrap">
-      <p class="kicker">Chapter 2 of 5 · Who and why</p>
-      <h1>Who gets hurt, and why?</h1>
-      <p class="lede">
-        Two interactive Tableau dashboards: who is hurt in fatal and non-fatal crashes, and what the police said caused them.
-      </p>
-      <ol class="progress" aria-label="The story"><li class="is-done"><a href="map.html"><span>1</span>Where and when</a></li><li class="is-current" aria-current="step"><a href="tableau.html"><span>2</span>Who and why</a></li><li><a href="correlation.html"><span>3</span>The places</a></li><li><a href="regression.html"><span>4</span>Putting it together</a></li><li><a href="methods.html"><span>5</span>How we know</a></li></ol>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <section class="section" aria-labelledby="who-heading">
-      <h2 id="who-heading" class="section__title">Who: fatal vs. non-fatal collisions</h2>
-      <p class="an-intro">How injury severity differs between pedestrians, bicyclists, motorcyclists and people in vehicles, and how lighting, conditions and hit-and-runs differ between fatal and non-fatal crashes.</p>
-      <div class="tableau-card">
-        <div class="tableau-header">
-          <div class="tableau-meta">
-            <span class="tableau-tag">Tableau Public</span>
-            <span>Fatal vs. non-fatal comparison</span>
-          </div>
-          <a href="https://public.tableau.com/app/profile/kyle.vandillen/viz/Fatalvs_NonFatal/Fatalvs_Non-Fatal"
-             target="_blank" rel="noopener noreferrer" class="tableau-link">
-            Open in Tableau Public ↗
-          </a>
-        </div>
-        <div class="tableau-viz-wrapper">
-          <tableau-viz id="tableauVizFatalVsNonFatal"
-            src="https://public.tableau.com/views/Fatalvs_NonFatal/Fatalvs_Non-Fatal"
-            device="default"
-            toolbar="bottom"
-            hide-tabs>
-          </tableau-viz>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="why-heading">
-      <h2 id="why-heading" class="section__title">Why: what the police said caused the crash</h2>
-      <p class="an-intro">The violations cited in collision reports, from speeding and failure to yield to unsafe turns and DUI, and how often each one leads to serious injury.</p>
-      <div class="tableau-card">
-        <div class="tableau-header">
-          <div class="tableau-meta">
-            <span class="tableau-tag">Tableau Public</span>
-            <span>Collision factors &amp; charge descriptions</span>
-          </div>
-          <a href="https://public.tableau.com/app/profile/kyle.vandillen/viz/ChargeDescriptions/ChargeDescription"
-             target="_blank" rel="noopener noreferrer" class="tableau-link">
-            Open in Tableau Public ↗
-          </a>
-        </div>
-        <div class="tableau-viz-wrapper">
-          <tableau-viz id="tableauVizChargeDesc"
-            src="https://public.tableau.com/views/ChargeDescriptions/ChargeDescription"
-            device="default"
-            toolbar="bottom"
-            hide-tabs>
-          </tableau-viz>
-        </div>
-      </div>
-    </section>
-    <section class="takeaway" aria-labelledby="takeaway-heading">
-      <h2 id="takeaway-heading" class="takeaway__title">What this chapter tells us</h2>
+  <div class="menu" id="menu">
+    <nav aria-label="Menu">
       <ul>
-        <li>Of the people hurt in crashes, 14.9% of pedestrians and 14.5% of motorcyclists were seriously hurt or killed.</li>
-        <li>For bicyclists it was 8.2%. For drivers it was 2.2%, and for passengers 2.7%.</li>
-        <li>Unsafe turns are the most common cause police cite, in about 1 in 5 collisions.</li>
-        <li>The most harmful cause is a driver failing to yield to a pedestrian: 18.6% of the people hurt in those crashes were seriously hurt or killed. DUI crashes come next, at 9.0%.</li>
-        <li>These are raw shares. They do not yet account for when or where the crash happened.</li>
+      <li><a href="./">Home</a></li>
+      <li><a href="map.html">Where &amp; when</a></li>
+      <li><a href="tableau.html" aria-current="page">Who &amp; why</a></li>
+      <li><a href="correlation.html">Correlation</a></li>
+      <li><a href="regression.html">Regression</a></li>
+      <li><a href="methods.html">Methods</a></li>
       </ul>
-      <p class="takeaway__next"><span>The next question</span>Is it about the people and causes, or about the places they are in? Next we look at the places.
-        <a href="correlation.html">Chapter 3: What kind of places have more severe crashes? →</a></p>
-    </section>
-  </main>
-
-    <nav class="pager wrap" aria-label="Previous and next chapter">
-      <a class="pager__link pager__link--prev" href="map.html"><span>← Chapter 1 · Where &amp; when</span>Where and when do crashes happen?</a>
-      <a class="pager__link pager__link--next" href="correlation.html"><span>Chapter 3 · Correlation →</span>What kind of places have more severe crashes?</a>
     </nav>
+  </div>
+  <main id="main">
+    <section class="page-head">
+      <div class="wrap">
+        <p class="eyebrow">Chapter 2 of 5</p>
+        <h1 class="gradient-text">Who gets hurt,<br> and why?</h1>
+        <p class="lead">Two dashboards by Kyle VanDillen: who is hurt in fatal and nonfatal crashes, and what the police said caused them.</p>
+        <ol class="progress" aria-label="Chapters"><li class="is-done"><a href="map.html"><i></i><span>1. Where and when</span></a></li><li class="is-current"><a href="tableau.html" aria-current="step"><i></i><span>2. Who and why</span></a></li><li class=""><a href="correlation.html"><i></i><span>3. The places</span></a></li><li class=""><a href="regression.html"><i></i><span>4. Putting it together</span></a></li><li class=""><a href="methods.html"><i></i><span>5. How we know</span></a></li></ol>
+      </div>
+    </section>
 
+    <section class="section section--flush">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2 class="section-title">Who: fatal and nonfatal collisions</h2>
+          <p class="section-intro">How injury severity differs between pedestrians, bicyclists, motorcyclists and people in vehicles, and how lighting, conditions and hit and runs differ between fatal and nonfatal crashes.</p>
+        </div>
+        <figure class="embed card reveal">
+          <figcaption class="embed__head">
+            <span class="caption-1">Fatal and nonfatal comparison</span>
+            <a class="embed__link caption-1" href="https://public.tableau.com/app/profile/kyle.vandillen/viz/Fatalvs_NonFatal/Fatalvs_Non-Fatal" target="_blank" rel="noopener noreferrer">Open in Tableau Public <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+          </figcaption>
+          <div class="embed__body">
+            <tableau-viz id="tableauVizFatalVsNonFatal" src="https://public.tableau.com/views/Fatalvs_NonFatal/Fatalvs_Non-Fatal" device="default" toolbar="bottom" hide-tabs></tableau-viz>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2 class="section-title">Why: what the police said caused the crash</h2>
+          <p class="section-intro">The violations cited in collision reports, from speeding and failure to yield to unsafe turns and DUI, and how often each one leads to serious injury.</p>
+        </div>
+        <figure class="embed card reveal">
+          <figcaption class="embed__head">
+            <span class="caption-1">Collision factors and charge descriptions</span>
+            <a class="embed__link caption-1" href="https://public.tableau.com/app/profile/kyle.vandillen/viz/ChargeDescriptions/ChargeDescription" target="_blank" rel="noopener noreferrer">Open in Tableau Public <i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+          </figcaption>
+          <div class="embed__body">
+            <tableau-viz id="tableauVizChargeDesc" src="https://public.tableau.com/views/ChargeDescriptions/ChargeDescription" device="default" toolbar="bottom" hide-tabs></tableau-viz>
+          </div>
+        </figure>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <div class="takeaway card reveal">
+          <h2 class="heading-5">What this chapter tells us</h2>
+          <ul>
+          <li>Of the people hurt in crashes, 14.9% of pedestrians and 14.5% of motorcyclists were seriously hurt or killed.</li>
+          <li>For bicyclists it was 8.2%. For drivers it was 2.2%, and for passengers 2.7%.</li>
+          <li>Unsafe turns are the most common cause police cite, in about 1 in 5 collisions.</li>
+          <li>The most harmful cause is a driver failing to yield to a pedestrian: 18.6% of the people hurt in those crashes were seriously hurt or killed. DUI crashes come next, at 9.0%.</li>
+          <li>These are raw shares. They do not yet account for when or where the crash happened.</li>
+          </ul>
+          <div class="takeaway__next">
+            <p class="caption-3">The next question</p>
+            <p class="title-2">Is it about the people and causes, or about the places they are in? Next we look at the places.</p>
+            <a class="btn btn--primary" href="correlation.html">Chapter 3: the places <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <nav class="wrap pager" aria-label="Previous and next chapter">
+      <a class="pager__link card" href="map.html"><span class="caption-4"><i class="ph ph-arrow-left" aria-hidden="true"></i> Chapter 1</span><span class="title-2">Where and when do crashes happen?</span></a>
+      <a class="pager__link pager__link--next card" href="correlation.html"><span class="caption-4">Chapter 3 <i class="ph ph-arrow-right" aria-hidden="true"></i></span><span class="title-2">What kind of places have more severe crashes?</span></a>
+    </nav>
+  </main>
   <footer class="footer">
-    <div class="wrap">
-      <p>Dashboards by Kyle VanDillen on <a href="https://public.tableau.com/app/profile/kyle.vandillen">Tableau Public</a>. Data: San Diego Police Department traffic collision records.</p>
+    <div class="wrap footer__inner">
+      <p>Crash Course Analytics. A study of serious and fatal injuries in San Diego traffic collisions, 2018 to 2025. Only aggregated summaries are published on this site.</p>
+      <nav aria-label="Footer">
+        <a href="methods.html">Methods</a>
+        <a href="https://github.com/RitikPadhyStudent/CrashCourseAnalytics/blob/main/documentation/data_notes.md">Data notes</a>
+        <a href="https://github.com/RitikPadhyStudent/CrashCourseAnalytics">Source code</a>
+      </nav>
     </div>
   </footer>
 </body>

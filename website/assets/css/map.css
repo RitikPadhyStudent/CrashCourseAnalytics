@@ -1,0 +1,164 @@
+/* Police-beat map dashboard (chapter 1). Classes use the "cd" prefix; tokens come from base.css. */
+
+.cd {
+  border: 1px solid var(--line);
+  border-radius: var(--r-2xl);
+  background: var(--bg);
+  overflow: hidden;
+}
+.cd__bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--s-300);
+  padding: var(--s-300);
+  border-bottom: 1px solid var(--line);
+}
+.cd__main { display: grid; grid-template-columns: minmax(0, 1fr) 320px; }
+.cd__map { height: 600px; min-width: 0; background: var(--surface-2); }
+.cd__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-300);
+  max-height: 600px;
+  padding: var(--s-300);
+  overflow-y: auto;
+  border-left: 1px solid var(--line);
+}
+.cd-panel__title { margin: 0 0 var(--s-100); font: var(--title-3); }
+.cd-note { margin: var(--s-100) 0 0; color: var(--text-3); font: var(--caption-5); }
+
+/* Measure chips */
+.cd-seg { margin: 0; padding: 0; border: 0; min-width: 0; }
+.cd-seg legend, .cd-time__legend {
+  display: block;
+  margin-bottom: var(--s-75);
+  color: var(--text-3);
+  font: var(--caption-4);
+}
+.cd-seg__row { display: flex; flex-wrap: wrap; gap: var(--s-75); }
+.cd-seg__opt { position: relative; }
+.cd-seg__opt input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.cd-seg__opt span {
+  display: block;
+  padding: var(--s-75) var(--s-100);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  color: var(--text-2);
+  font: var(--title-4);
+  transition: background-color var(--fade) var(--ease), color var(--fade) var(--ease), border-color var(--fade) var(--ease);
+}
+.cd-seg__opt:hover input:not(:checked) + span { background: var(--surface-2); color: var(--text); }
+.cd-seg__opt input:checked + span { border-color: var(--text); background: var(--text); color: var(--bg); }
+.cd-seg__opt input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 2px; }
+.cd-seg__opt:active span { transform: scale(0.98); }
+
+/* Year slider and play button */
+.cd-time__row { display: flex; align-items: center; gap: var(--s-100); }
+.cd-play {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: var(--r-full);
+  background: var(--text);
+  color: var(--bg);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color var(--fade) var(--ease), transform var(--move) var(--ease);
+}
+.cd-play:hover { background: #27272A; }
+.cd-play:active { transform: scale(0.98); }
+.cd-slider { flex: 1; min-width: 0; accent-color: var(--text); cursor: pointer; }
+.cd-year { flex: none; width: 4ch; font: var(--heading-5); font-variant-numeric: tabular-nums; }
+.cd-ticks {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--s-25) var(--s-700) 0 var(--s-600);
+  color: var(--text-3);
+  font: var(--data-sm);
+}
+.cd-caution { margin: 0; padding: var(--s-75) var(--s-300); border-bottom: 1px solid var(--line); background: var(--surface); font: var(--body-6); }
+
+/* Legend */
+.cd-legend__list { margin: 0; padding: 0; list-style: none; }
+.cd-legend__list li {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: var(--s-100);
+  padding: var(--s-50) 0;
+  font: var(--body-6);
+}
+.cd-legend__label small { margin-left: var(--s-50); color: var(--text-3); font: var(--data-sm); }
+.cd-swatch { width: 24px; height: 16px; border: 1px solid rgba(10, 10, 10, 0.12); border-radius: var(--r-sm); }
+.cd-legend__count { color: var(--text-3); font: var(--data-sm); }
+
+/* Ranking */
+.cd-rank { margin: 0; padding: 0; list-style: none; }
+.cd-rank button {
+  display: grid;
+  grid-template-columns: 64px 1fr 48px;
+  align-items: center;
+  gap: var(--s-75);
+  width: 100%;
+  padding: var(--s-50) var(--s-75);
+  border: 0;
+  border-radius: var(--r-md);
+  background: none;
+  color: var(--text);
+  font: var(--body-6);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--fade) var(--ease);
+}
+.cd-rank button:hover, .cd-rank button.is-active { background: var(--surface-2); }
+.cd-rank button.is-active { font: var(--body-4); }
+.cd-rank button:active { transform: scale(0.98); }
+.cd-rank__bar { height: 8px; overflow: hidden; border-radius: var(--r-full); background: var(--surface-2); }
+.cd-rank__bar i { display: block; height: 100%; border-radius: var(--r-full); }
+.cd-rank__val { font: var(--data-sm); text-align: right; }
+
+/* Trend charts */
+.cd__charts { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+.cd-chart { min-width: 0; margin: 0; padding: var(--s-300); }
+.cd-chart + .cd-chart { border-left: 1px solid var(--line); }
+.cd-chart figcaption { margin-bottom: var(--s-100); font: var(--title-4); }
+.cd-chart__box { position: relative; height: 240px; }
+.cd-chart canvas { cursor: pointer; }
+
+.cd-error { margin: 0; padding: var(--s-300); color: var(--sev); font: var(--body-6); }
+
+/* Loading layout, replaced when the dashboard draws */
+.map-loading__bar { height: 96px; margin-bottom: var(--s-200); border-radius: var(--r-2xl); }
+.map-loading__main { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s-200); }
+.map-loading__main .skeleton { height: 600px; border-radius: var(--r-2xl); }
+
+/* Popup */
+.leaflet-container { font-family: var(--font); }
+.leaflet-popup-content-wrapper { border-radius: var(--r-xl); box-shadow: 0 8px 24px rgba(10, 10, 10, 0.12); }
+.leaflet-popup-content { margin: var(--s-100) var(--s-200); color: var(--text); font: var(--body-6); }
+.cd-popup__head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-200);
+  margin-bottom: var(--s-75);
+  padding-bottom: var(--s-75);
+  border-bottom: 1px solid var(--line);
+  font: var(--title-3);
+}
+.cd-popup__head span:last-child { align-self: center; color: var(--text-3); font: var(--data-sm); }
+.cd-popup__table { width: 100%; border-collapse: collapse; }
+.cd-popup__table th { padding: var(--s-25) var(--s-100) var(--s-25) 0; color: var(--text-2); font-weight: 400; text-align: left; vertical-align: top; }
+.cd-popup__table td { padding: var(--s-25) 0; font: var(--data-sm); text-align: right; }
+.cd-popup__empty { margin: var(--s-50) 0 0; color: var(--text-2); }
+
+@media (max-width: 900px) {
+  .cd__bar, .cd__main, .cd__charts, .map-loading__main { grid-template-columns: 1fr; }
+  .cd__map { height: 440px; }
+  .map-loading__main .skeleton:last-child { display: none; }
+  .cd-ticks span:nth-child(even) { visibility: hidden; }
+  .cd__panel { max-height: none; border-left: 0; border-top: 1px solid var(--line); }
+  .cd-chart + .cd-chart { border-left: 0; border-top: 1px solid var(--line); }
+}

@@ -14,9 +14,9 @@
   };
 
   const SVG_NS = "http://www.w3.org/2000/svg";
-  const COLORS = { up: "#B95055", down: "#294B66", ns: "#8A949C", ink: "#18242E", soft: "#4D5B66", rule: "#D8D4CA", grid: "#ECE8DF", card: "#FFFFFF" };
+  const COLORS = { up: "#B95055", down: "#294B66", ns: "#A1A1AA", ink: "#0A0A0A", soft: "#52525B", rule: "#E4E4E7", grid: "#F4F4F5", card: "#FFFFFF" };
   // Diverging ramp for correlations: blue (negative) -> neutral gray -> red (positive)
-  const RAMP = [[-1, "#1F3A52"], [-0.5, "#7D9CB6"], [0, "#F0EFEC"], [0.5, "#D7979A"], [1, "#8E3439"]];
+  const RAMP = [[-1, "#1F3A52"], [-0.5, "#7D9CB6"], [0, "#F4F4F5"], [0.5, "#D7979A"], [1, "#8E3439"]];
 
   // ---------- small helpers ----------
 
@@ -51,7 +51,6 @@
     }
     return RAMP[RAMP.length - 1][1];
   }
-  const inkOn = (v) => (Math.abs(v) >= 0.55 ? "#FFFFFF" : COLORS.ink);
 
   const fmtOR = (x) => (x >= 10 ? x.toFixed(1) : x.toFixed(2)) + "×";
   const fmtRho = (r) => (r >= 0 ? "+" : "−") + Math.abs(r).toFixed(2);
@@ -129,6 +128,8 @@
   function regressionChart(root, data) {
     const state = { model: "serious_or_fatal", order: "group" };
     root.classList.add("an");
+    root.classList.remove("chart-loading");
+    root.removeAttribute("aria-busy");
     root.innerHTML = "";
 
     const bar = el("div", { class: "an__bar" }, root);
@@ -226,7 +227,7 @@
       let y = top;
       for (const it of items) {
         if (it.type === "head") {
-          svgEl("text", { x: 0, y: y + headH - 10, class: "an-group", text: it.text.toUpperCase() }, svg);
+          svgEl("text", { x: 0, y: y + headH - 10, class: "an-group", text: it.text }, svg);
           y += headH;
           continue;
         }
@@ -263,7 +264,7 @@
       const rowsHtml = model.rows.slice().sort((a, b) => b.odds_ratio - a.odds_ratio).map((r) =>
         `<tr><th scope="row">${r.label}</th><td>${fmtOR(r.odds_ratio)}</td><td>${fmtOR(r.ci_low)} – ${fmtOR(r.ci_high)}</td>` +
         `<td>${fmtP(r.p_value)}</td><td>${r.p_value < 0.05 ? (r.odds_ratio >= 1 ? "Raises" : "Lowers") : "No clear effect"}</td></tr>`).join("");
-      tableBox.innerHTML = `<table><thead><tr><th>Factor</th><th>Odds ratio</th><th>Likely range (95%)</th><th>p-value</th><th>Effect</th></tr></thead><tbody>${rowsHtml}</tbody></table>`;
+      tableBox.innerHTML = `<table><thead><tr><th>Factor</th><th>Odds ratio</th><th>Likely range (95%)</th><th>p value</th><th>Effect</th></tr></thead><tbody>${rowsHtml}</tbody></table>`;
     }
 
     onResize(box, draw);
@@ -294,6 +295,8 @@
       ranks: false,
     };
     root.classList.add("an");
+    root.classList.remove("chart-loading");
+    root.removeAttribute("aria-busy");
     root.innerHTML = "";
 
     const bar = el("div", { class: "an__bar" }, root);
@@ -323,7 +326,7 @@
 
     const scale = el("div", { class: "an-scale" }, root);
     scale.innerHTML =
-      `<span>−1 (opposite)</span><i style="background:linear-gradient(90deg,${RAMP.map(([v, c]) => `${c} ${(v + 1) * 50}%`).join(",")})"></i><span>+1 (together)</span>`;
+      `<span>−1 opposite</span><ol aria-hidden="true">${[-1, -0.6, -0.2, 0.2, 0.6, 1].map((v) => `<li style="background:${rampColor(v)}"></li>`).join("")}</ol><span>+1 together</span>`;
 
     const main = el("div", { class: "an__split" }, root);
     const box = el("div", { class: "an__plot an__plot--scroll" }, main);
@@ -435,7 +438,6 @@
         colLabels.push(c);
       });
 
-      const showNumbers = cell >= 26;
       idx.forEach((vi, a) => {
         for (let b = 0; b <= a; b++) {
           const vj = idx[b];
@@ -445,11 +447,7 @@
           const selected = (state.pair[0] === vi && state.pair[1] === vj) || (state.pair[0] === vj && state.pair[1] === vi);
           const g = svgEl("g", { class: "an-cell" + (selected ? " is-selected" : "") }, svg);
           svgEl("rect", { x: labelW + b * cell + 1, y: a * cell + 1, width: cell - 2, height: cell - 2, rx: 2,
-            fill: faded ? "#F4F2EC" : rampColor(r) }, g);
-          if (showNumbers && !faded) {
-            svgEl("text", { x: labelW + b * cell + cell / 2, y: a * cell + cell / 2 + 3.5, "text-anchor": "middle", class: "an-cell__num",
-              fill: inkOn(r), text: a === b ? "1" : fmtRho(r).replace("0.", ".") }, g);
-          }
+            fill: faded ? "#FAFAFA" : rampColor(r) }, g);
           if (a === b) continue;
           const html = pairHtml(vi, vj);
           g.addEventListener("pointermove", (e) => {
@@ -582,7 +580,8 @@
     const reg = document.querySelector(opts.regression);
     const cor = document.querySelector(opts.correlation);
     const fail = (node) => (err) => {
-      node.innerHTML = `<p class="cd-error">Could not load this chart: ${err.message}</p>`;
+      node.innerHTML = `<p class="cd-error">This chart could not load: ${err.message}. Reload the page to try again.</p>`;
+      node.removeAttribute("aria-busy");
       throw err;
     };
     if (reg) jobs.push(load("regression.json").then((d) => regressionChart(reg, d)).catch(fail(reg)));
