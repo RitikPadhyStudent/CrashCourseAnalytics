@@ -11,7 +11,7 @@ A static website (plain HTML, CSS and JavaScript) that tells the project's story
 | `regression.html` | 4 · Regression | Interactive odds-ratio chart from the logistic regression |
 | `methods.html` | 5 · Methods | How every chapter's numbers were built, and their limits |
 
-Every page shares the sticky top bar (`assets/css/nav.css`). Chapter pages also show a progress bar, a "What this chapter tells us" box and previous/next links (`assets/css/story.css`). The chapter text lives in each page's HTML.
+Every page shares the floating top bar and the design system in `assets/css/base.css`: one typeface (Geist, with Geist Mono for numbers), fixed text styles, a fixed spacing scale and one motion curve. Chapter pages also show a progress bar, a "What this chapter tells us" box and previous/next links (`assets/css/chapter.css`). The chapter text lives in each page's HTML.
 
 ## The beat map (chapter 1)
 
@@ -54,14 +54,17 @@ website/
 ├── correlation.html                Chapter 3: correlation charts
 ├── regression.html                 Chapter 4: regression chart
 ├── methods.html                    Chapter 5: methods and limitations
+├── 404.html                        Page not found
 ├── assets/
-│   ├── css/style.css               Base styles, map dashboard ("cd-" prefix) and Tableau cards
-│   ├── css/nav.css                 Top bar and previous/next links
-│   ├── css/story.css               Chapter progress bar and takeaway box
+│   ├── css/base.css                Design system: tokens, text styles, spacing, nav, buttons, footer, motion
 │   ├── css/home.css                Home page
-│   ├── css/analysis.css            Correlation and regression charts ("an-" prefix)
+│   ├── css/chapter.css             Chapter pages: progress, Tableau embeds, takeaway, pager, methods
+│   ├── css/map.css                 Map dashboard ("cd-" prefix)
+│   ├── css/charts.css              Correlation and regression charts ("an-" prefix)
+│   ├── js/site.js                  Mobile menu, scroll reveals, tagline word reveal
 │   ├── js/app.js                   Map dashboard logic; exposes window.CollisionDashboard
-│   └── js/analysis.js              Correlation and regression charts; exposes window.AnalysisCharts
+│   ├── js/analysis.js              Correlation and regression charts; exposes window.AnalysisCharts
+│   ├── favicon.svg, og.png         Site icon and social sharing image
 ├── data/
 │   ├── police_beats_web.geojson    One simplified polygon per SDPD police beat (125 beats)
 │   ├── map_properties.json         Beat-year summaries 2018-2025, metric definitions, class breaks
@@ -162,7 +165,8 @@ Minimal host page:
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="https://<your-site>/assets/css/style.css">
+<link rel="stylesheet" href="https://<your-site>/assets/css/base.css">
+<link rel="stylesheet" href="https://<your-site>/assets/css/map.css">
 <div id="collision-dashboard"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

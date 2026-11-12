@@ -3,29 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Crash Course Analytics</title>
-  <link rel="icon" href="data:,">
-  <meta name="description" content="Who pays the highest price on San Diego streets? A study of serious and fatal injuries in San Diego traffic collisions, 2018-2025.">
+  <title>Crash Course Analytics: who pays the highest price on San Diego streets</title>
+  <meta name="description" content="A study of 67,970 traffic collisions on San Diego city streets, 2018 to 2025: who is most likely to be seriously hurt or killed, and when and where it happens.">
+  <link rel="canonical" href="https://crashcourseanalytics-website.vercel.app/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Crash Course Analytics">
+  <meta property="og:title" content="Crash Course Analytics: who pays the highest price on San Diego streets">
+  <meta property="og:description" content="A study of 67,970 traffic collisions on San Diego city streets, 2018 to 2025: who is most likely to be seriously hurt or killed, and when and where it happens.">
+  <meta property="og:url" content="https://crashcourseanalytics-website.vercel.app/">
+  <meta property="og:image" content="https://crashcourseanalytics-website.vercel.app/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>document.documentElement.classList.add("js");</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/nav.css">
-  <link rel="stylesheet" href="assets/css/story.css">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/home.css">
+  <script src="assets/js/site.js" defer></script>
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap topbar__inner">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="nav">
+    <div class="nav__bar">
       <a class="brand" href="./" aria-label="Crash Course Analytics home">
-        <svg viewBox="0 0 22 22" width="22" height="22" aria-hidden="true">
-          <rect x="1" y="1" width="9" height="20" rx="2" fill="#294B66"></rect>
-          <rect x="12" y="1" width="9" height="20" rx="2" fill="#B95055"></rect>
+        <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true">
+          <rect x="1" y="3" width="8" height="14" rx="2" fill="#294B66"></rect>
+          <rect x="11" y="3" width="8" height="14" rx="2" fill="#B95055"></rect>
         </svg>
-        <span class="brand__name">Crash Course Analytics</span>
+        Crash Course Analytics
       </a>
-      <nav class="topnav" aria-label="Primary">
+      <nav class="nav__links" aria-label="Primary">
         <a href="./" aria-current="page">Home</a>
         <a href="map.html">Where &amp; when</a>
         <a href="tableau.html">Who &amp; why</a>
@@ -33,170 +43,209 @@
         <a href="regression.html">Regression</a>
         <a href="methods.html">Methods</a>
       </nav>
-      <details class="topmenu">
-        <summary>Menu</summary>
-        <ul>
-          <li><a href="./" aria-current="page">Home</a></li>
-          <li><a href="map.html">Where &amp; when</a></li>
-          <li><a href="tableau.html">Who &amp; why</a></li>
-          <li><a href="correlation.html">Correlation</a></li>
-          <li><a href="regression.html">Regression</a></li>
-          <li><a href="methods.html">Methods</a></li>
-        </ul>
-      </details>
+      <button class="nav__toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Open menu"><span></span><span></span></button>
     </div>
   </header>
-
-  <header class="masthead">
-    <div class="wrap">
-      <p class="kicker">San Diego · Traffic collisions · 2018–2025</p>
-      <h1>Who pays the highest price on San Diego streets?</h1>
-      <p class="lede">
-        We studied every traffic collision the San Diego Police Department recorded on city streets from 2018 to 2025,
-        to find out who is most likely to be seriously hurt or killed, and when and where it happens.
-        Pedestrians, bicyclists and motorcyclists get particular attention, because they have no car around them.
-      </p>
-      <p class="badge">City streets only · freeways patrolled by CHP are not included</p>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <section class="section" aria-labelledby="numbers-heading">
-      <h2 id="numbers-heading" class="visually-hidden">The data at a glance</h2>
-      <ul class="stats">
-        <li><b>67,970</b><span>collisions on city streets, 2018–2025</span></li>
-        <li><b>139,192</b><span>people involved in those collisions</span></li>
-        <li><b>2,036</b><span>people seriously hurt or killed</span></li>
-        <li><b>427</b><span>people killed</span></li>
-        <li><b>125</b><span>police beats compared</span></li>
+  <div class="menu" id="menu">
+    <nav aria-label="Menu">
+      <ul>
+      <li><a href="./" aria-current="page">Home</a></li>
+      <li><a href="map.html">Where &amp; when</a></li>
+      <li><a href="tableau.html">Who &amp; why</a></li>
+      <li><a href="correlation.html">Correlation</a></li>
+      <li><a href="regression.html">Regression</a></li>
+      <li><a href="methods.html">Methods</a></li>
       </ul>
+    </nav>
+  </div>
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__text">
+          <p class="eyebrow">San Diego traffic collisions, 2018 to 2025</p>
+          <h1 class="gradient-text">Who pays<br> the highest price<br> on San Diego streets?</h1>
+          <p class="lead">We studied 67,970 collisions on San Diego city streets to find out who is most likely to be seriously hurt or killed, and when and where it happens.</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="map.html">Read chapter 1: where and when <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <p class="hero__proof caption-2">Built from San Diego Police Department records of 139,192 people involved in those collisions.</p>
+        </div>
+        <figure class="hero__chart card">
+          <figcaption>
+            <span class="title-3">Share of injured people seriously hurt or killed</span>
+            <span class="caption-5">By road user, 2018 to 2025</span>
+          </figcaption>
+          <ul class="bars">
+            <li><span class="bars__label body-6">Pedestrians</span><span class="bars__track"><i style="--v: 14.9"></i></span><span class="bars__value">14.9%</span></li>
+            <li><span class="bars__label body-6">Motorcyclists</span><span class="bars__track"><i style="--v: 14.5"></i></span><span class="bars__value">14.5%</span></li>
+            <li><span class="bars__label body-6">Bicyclists</span><span class="bars__track"><i style="--v: 8.2"></i></span><span class="bars__value">8.2%</span></li>
+            <li class="is-muted"><span class="bars__label body-6">Passengers</span><span class="bars__track"><i style="--v: 2.7"></i></span><span class="bars__value">2.7%</span></li>
+            <li class="is-muted"><span class="bars__label body-6">Drivers</span><span class="bars__track"><i style="--v: 2.2"></i></span><span class="bars__value">2.2%</span></li>
+          </ul>
+          <p class="caption-5 hero__chart-note">People with a recorded injury level. Source: SDPD collision records.</p>
+        </figure>
+      </div>
     </section>
 
-    <section class="section" aria-labelledby="question-heading">
-      <h2 id="question-heading" class="section__title">The question</h2>
-      <div class="home-split">
-        <p class="home-text">
-          Most crashes on city streets end with a dented car and a minor injury. A few end with someone in hospital or dead.
-          We wanted to know what separates the two. So we ask whether the number of collisions, and how severe the injuries are,
-          differ by four things:
-        </p>
-        <ul class="facets">
-          <li><b>Who</b>Drivers, passengers, pedestrians, bicyclists and motorcyclists.</li>
-          <li><b>When</b>Year, day of the week and hour of the day, with 2020 (COVID) read separately.</li>
-          <li><b>Where</b>The 125 San Diego police beats, and what their streets and residents are like.</li>
-          <li><b>How</b>What caused the crash: speeding, DUI, hit-and-run, red lights, unsafe turns.</li>
+    <section class="section section--tight">
+      <div class="wrap">
+        <ul class="stats card reveal">
+          <li><span class="stats__num">67,970</span><span class="caption-2">collisions on city streets</span></li>
+          <li><span class="stats__num">139,192</span><span class="caption-2">people involved</span></li>
+          <li><span class="stats__num">2,036</span><span class="caption-2">seriously hurt or killed</span></li>
+          <li><span class="stats__num">427</span><span class="caption-2">killed</span></li>
+          <li><span class="stats__num">125</span><span class="caption-2">police beats compared</span></li>
         </ul>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="story-heading">
-      <h2 id="story-heading" class="section__title">The story in five chapters</h2>
-      <p class="home-text home-text--wide">Each chapter answers one question and leads to the next. Read them in order, or jump to any one.</p>
-      <ol class="cards cards--story">
-        <li>
-          <a class="card" href="map.html">
-            <span class="card__tag">Chapter 1 · Where &amp; when</span>
-            <b>Where and when do crashes happen?</b>
-            <span>A map of every police beat, year by year, and a dashboard of when fatal crashes happen by hour and day.</span>
-          </a>
-        </li>
-        <li>
-          <a class="card" href="tableau.html">
-            <span class="card__tag">Chapter 2 · Who &amp; why</span>
-            <b>Who gets hurt, and why?</b>
-            <span>Two Tableau dashboards: fatal vs. non-fatal crashes by road user, and the causes police cited.</span>
-          </a>
-        </li>
-        <li>
-          <a class="card" href="correlation.html">
-            <span class="card__tag">Chapter 3 · Correlation</span>
-            <b>What kind of places have more severe crashes?</b>
-            <span>44 characteristics of each police beat, from speed limits to income, compared with its injury rate.</span>
-          </a>
-        </li>
-        <li>
-          <a class="card" href="regression.html">
-            <span class="card__tag">Chapter 4 · Regression</span>
-            <b>So who pays the highest price?</b>
-            <span>Every factor tested together: how much each one raises or lowers the odds of a serious or fatal injury.</span>
-          </a>
-        </li>
-        <li>
-          <a class="card" href="methods.html">
-            <span class="card__tag">Chapter 5 · Methods</span>
-            <b>How we know, and what we can't say</b>
-            <span>How the numbers were built, chapter by chapter, and the limits of the data.</span>
-          </a>
-        </li>
-      </ol>
-    </section>
-
-    <section class="section" aria-labelledby="found-heading">
-      <h2 id="found-heading" class="section__title">The short version</h2>
-      <p class="home-text home-text--wide">No time for the whole story? Here is where it ends up.</p>
-      <ol class="findings">
-        <li>
-          <b>Fewer crashes, but not fewer serious injuries.</b>
-          Collisions peaked at 10,174 in 2019 and fell about 25% by 2025. Serious and fatal injuries fell only about 5%.
-          <a href="map.html">See chapter 1 →</a>
-        </li>
-        <li>
-          <b>The busiest places are not the most dangerous.</b>
-          Dense central beats have the most crashes, but a lower share of severe ones. Spread-out beats with faster driving have a
-          higher share of people seriously hurt.
-          <a href="correlation.html">See chapter 3 →</a>
-        </li>
-        <li>
-          <b>People outside a car pay the highest price.</b>
-          In otherwise similar crashes, pedestrians have about 9 times, motorcyclists about 9 times, and bicyclists about 5 times
-          the odds of a driver of being seriously hurt or killed.
-          <a href="regression.html">See chapter 4 →</a>
-        </li>
-        <li>
-          <b>Night and drunk driving make crashes worse.</b>
-          Crashes between 8pm and 6am roughly double the odds of a serious injury, and DUI crashes raise them about 2.5 times.
-          <a href="regression.html">See chapter 4 →</a>
-        </li>
-      </ol>
-    </section>
-
-    <section class="section" aria-labelledby="how-heading">
-      <h2 id="how-heading" class="section__title">How we did it</h2>
-      <div class="home-split">
-        <ul class="approach">
-          <li><b>Count each crash once.</b> A collision with several people in it is one collision, but each person's injury counts.</li>
-          <li><b>Measure severity as a rate.</b> We divide serious and fatal injuries by the number of people hurt, so busy and quiet areas can be compared fairly.</li>
-          <li><b>Look at patterns first.</b> Trends over time, differences by road user, hour, day, police beat and cause of crash.</li>
-          <li><b>Then test them together.</b> A regression checks which factors still matter once the others are held constant.</li>
+    <section class="section">
+      <div class="wrap split">
+        <div class="section-head reveal">
+          <h2 class="section-title">The question</h2>
+          <p class="section-intro">Most crashes on city streets end with a dented car and a minor injury. A few end with someone in hospital or dead. We wanted to know what separates the two, so we compared collisions by four things.</p>
+        </div>
+        <ul class="facets reveal">
+          <li class="card"><i class="ph ph-person-simple-walk" aria-hidden="true"></i><h3 class="title-2">Who</h3><p class="body-6">Drivers, passengers, pedestrians, bicyclists and motorcyclists.</p></li>
+          <li class="card"><i class="ph ph-clock" aria-hidden="true"></i><h3 class="title-2">When</h3><p class="body-6">Year, day of the week and hour of the day, with 2020 read separately because of COVID.</p></li>
+          <li class="card"><i class="ph ph-map-trifold" aria-hidden="true"></i><h3 class="title-2">Where</h3><p class="body-6">The 125 San Diego police beats, and what their streets and residents are like.</p></li>
+          <li class="card"><i class="ph ph-warning" aria-hidden="true"></i><h3 class="title-2">How</h3><p class="body-6">What the police said caused the crash: speeding, DUI, hit and run, red lights, unsafe turns.</p></li>
         </ul>
-        <div class="sources">
-          <p class="sources__title">Data sources</p>
-          <ul>
-            <li>San Diego Police Department traffic collision records</li>
-            <li>US Census American Community Survey, 2020–2024</li>
-            <li>SANDAG roads, bikeways and transit stops</li>
-            <li>City of San Diego traffic counts, parking meters, zoning and police beats</li>
-            <li>SDPD crime records (NIBRS), 2020–2025</li>
-          </ul>
-          <p class="sources__more"><a href="methods.html">Methods and limitations →</a></p>
+      </div>
+    </section>
+
+    <section class="section tagline" aria-label="Tagline">
+      <div class="wrap">
+        <p class="tagline__text" data-word-reveal>Most crashes end with a dent and a sore neck. The ones that end in a hospital bed fall on the people with no car around them.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2 class="section-title">The story in five chapters</h2>
+          <p class="section-intro">Each chapter answers one question and leads to the next. Read them in order, or jump to any one.</p>
+        </div>
+        <ol class="chapters">
+          <li class="reveal"><a class="chapter card" href="map.html"><span class="chapter__num">1</span><span class="chapter__body"><span class="caption-4">Where and when</span><span class="title-1">Where and when do crashes happen?</span><span class="body-6">A map of every police beat, year by year, and a dashboard of when fatal crashes happen.</span></span><i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+          <li class="reveal"><a class="chapter card" href="tableau.html"><span class="chapter__num">2</span><span class="chapter__body"><span class="caption-4">Who and why</span><span class="title-1">Who gets hurt, and why?</span><span class="body-6">Two Tableau dashboards: fatal and nonfatal crashes by road user, and the causes police cited.</span></span><i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+          <li class="reveal"><a class="chapter card" href="correlation.html"><span class="chapter__num">3</span><span class="chapter__body"><span class="caption-4">The places</span><span class="title-1">What kind of places have more severe crashes?</span><span class="body-6">44 characteristics of each police beat, from speed limits to income, compared with its injury rate.</span></span><i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+          <li class="reveal"><a class="chapter card" href="regression.html"><span class="chapter__num">4</span><span class="chapter__body"><span class="caption-4">Putting it together</span><span class="title-1">So who pays the highest price?</span><span class="body-6">Every factor tested together: how much each one raises or lowers the odds of a serious injury.</span></span><i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+          <li class="reveal"><a class="chapter card" href="methods.html"><span class="chapter__num">5</span><span class="chapter__body"><span class="caption-4">How we know</span><span class="title-1">How we know, and what we can't say</span><span class="body-6">How the numbers were built, chapter by chapter, and the limits of the data.</span></span><i class="ph ph-arrow-right" aria-hidden="true"></i></a></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2 class="section-title">The short version</h2>
+          <p class="section-intro">No time for the whole story? Here is where it ends up.</p>
+        </div>
+        <ul class="findings">
+          <li class="card reveal">
+            <p class="findings__num">5%</p>
+            <h3 class="title-2">Fewer crashes, not fewer serious injuries</h3>
+            <p class="body-6">Collisions peaked at 10,174 in 2019 and fell about 25% by 2025. Serious and fatal injuries fell only about 5%.</p>
+            <a class="caption-1" href="map.html">Chapter 1 <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+          <li class="card reveal">
+            <p class="findings__num">&minus;0.35</p>
+            <h3 class="title-2">The busiest places are not the most dangerous</h3>
+            <p class="body-6">Dense central beats have the most crashes but a lower share of severe ones. Spread out beats with faster driving have a higher share.</p>
+            <a class="caption-1" href="correlation.html">Chapter 3 <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+          <li class="card reveal">
+            <p class="findings__num">9.3&times;</p>
+            <h3 class="title-2">People outside a car pay the highest price</h3>
+            <p class="body-6">In otherwise similar crashes, pedestrians have 9.3 times, motorcyclists 8.6 times and bicyclists 4.9 times the odds of a driver of being seriously hurt or killed.</p>
+            <a class="caption-1" href="regression.html">Chapter 4 <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+          <li class="card reveal">
+            <p class="findings__num">2.1&times;</p>
+            <h3 class="title-2">Night and drunk driving make crashes worse</h3>
+            <p class="body-6">Crashes between 8pm and 6am have 2.1 times the odds of a serious injury, and DUI crashes 2.5 times.</p>
+            <a class="caption-1" href="regression.html">Chapter 4 <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap split">
+        <div class="section-head reveal">
+          <h2 class="section-title">Questions people ask</h2>
+          <p class="section-intro">The short answers. <a href="methods.html">Methods</a> has the details.</p>
+        </div>
+        <div class="faq reveal">
+          <details class="faq__item">
+            <summary class="title-3">Where does the data come from?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+            <p class="body-6">Traffic collision records from the San Diego Police Department, 2018 to 2025. Chapter 3 also uses the US Census, SANDAG road and transit data, City of San Diego data and SDPD crime records to describe each police beat.</p>
+          </details>
+          <details class="faq__item">
+            <summary class="title-3">Why does the study start in 2018?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+            <p class="body-6">The 2016 and 2017 records are incomplete. 2017 has only a few hundred records, so including them would make the trends misleading.</p>
+          </details>
+          <details class="faq__item">
+            <summary class="title-3">What counts as a serious injury?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+            <p class="body-6">An injury the officer recorded as severe, serious or fatal. Minor, visible, possible and pain only injuries count as not serious.</p>
+          </details>
+          <details class="faq__item">
+            <summary class="title-3">Why do so many people have no injury level?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+            <p class="body-6">About 72% of people in the records have none. There is no code for &ldquo;not hurt&rdquo;, so a blank most likely means the person was not injured. Injury rates on this site describe the people who were hurt.</p>
+          </details>
+          <details class="faq__item">
+            <summary class="title-3">Are freeways included?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+            <p class="body-6">No. Freeways are patrolled by the California Highway Patrol, so this study covers city streets only.</p>
+          </details>
+          <details class="faq__item">
+            <summary class="title-3">Does this prove what causes severe crashes?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+            <p class="body-6">No. The analysis finds patterns and holds other factors equal where it can, but it cannot prove cause. The records also have no age or sex, which both matter a lot.</p>
+          </details>
+          <details class="faq__item">
+            <summary class="title-3">Why are road users compared with drivers?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+            <p class="body-6">Drivers are the largest group and the people best protected by a car, so they are the natural baseline for everyone else.</p>
+          </details>
+          <details class="faq__item">
+            <summary class="title-3">Can I see the code and the data?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+            <p class="body-6">Yes. Everything is in the project&rsquo;s <a href='https://github.com/RitikPadhyStudent/CrashCourseAnalytics'>GitHub repository</a>, including the data notes that explain known problems in the records.</p>
+          </details>
         </div>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="team-heading">
-      <h2 id="team-heading" class="section__title">The team</h2>
-      <ul class="team">
-        <li><b>Ritik Padhy</b><span class="team__role">Coordinator</span><span>Website content and structure, literature review, data collection and cleaning</span></li>
-        <li><b>Rong Li</b><span>Final report and geolocation analysis</span></li>
-        <li><b>Kyle VanDillen</b><span>Building the website and integrating it with the final report</span></li>
-        <li><b>Bryce Hall</b><span>Final presentation and video, road-user and temporal analysis</span></li>
-      </ul>
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <h2 class="section-title">The team</h2>
+        </div>
+        <ul class="team reveal">
+          <li><span class="team__initials" aria-hidden="true">RP</span><span class="title-3">Ritik Padhy</span><span class="caption-4">Coordinator</span><span class="body-6">Website content and structure, literature review, data collection and cleaning</span></li>
+          <li><span class="team__initials" aria-hidden="true">RL</span><span class="title-3">Rong Li</span><span class="caption-4">Report</span><span class="body-6">Final report and geolocation analysis</span></li>
+          <li><span class="team__initials" aria-hidden="true">KV</span><span class="title-3">Kyle VanDillen</span><span class="caption-4">Website</span><span class="body-6">Building the website and integrating it with the final report</span></li>
+          <li><span class="team__initials" aria-hidden="true">BH</span><span class="title-3">Bryce Hall</span><span class="caption-4">Presentation</span><span class="body-6">Final presentation and video, road user and temporal analysis</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="final card reveal">
+          <h2 class="heading-4">Start with where and when</h2>
+          <p class="section-intro">Chapter 1 maps every police beat from 2018 to 2025 and shows the hours when fatal crashes happen.</p>
+          <a class="btn btn--primary" href="map.html">Read chapter 1: where and when <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
     </section>
   </main>
-
   <footer class="footer">
-    <div class="wrap">
-      <p>Crash Course Analytics · San Diego traffic collision study, 2018–2025. Only aggregated summaries are published on this site.</p>
+    <div class="wrap footer__inner">
+      <p>Crash Course Analytics. A study of serious and fatal injuries in San Diego traffic collisions, 2018 to 2025. Only aggregated summaries are published on this site.</p>
+      <nav aria-label="Footer">
+        <a href="methods.html">Methods</a>
+        <a href="https://github.com/RitikPadhyStudent/CrashCourseAnalytics/blob/main/documentation/data_notes.md">Data notes</a>
+        <a href="https://github.com/RitikPadhyStudent/CrashCourseAnalytics">Source code</a>
+      </nav>
     </div>
   </footer>
 </body>

@@ -183,6 +183,9 @@
   // ---------- charts ----------
 
   function makeChart(canvas, onPickYear) {
+    Chart.defaults.font.family = "Geist, system-ui, sans-serif";
+    Chart.defaults.font.size = 12;
+    Chart.defaults.color = "#71717A";
     return new Chart(canvas, {
       type: "bar", // base type gives a category year axis; datasets override with their own type
       data: { labels: state.data.props.years, datasets: [] },
@@ -195,8 +198,8 @@
           const i = chart.scales.x.getValueForPixel(evt.x);
           if (i >= 0 && i < state.data.props.years.length) onPickYear(state.data.props.years[i]);
         },
-        plugins: { legend: { labels: { boxWidth: 12, font: { family: "Public Sans" } } } },
-        scales: { y: { beginAtZero: true, grid: { color: "#ECE8DF" } }, x: { grid: { display: false } } },
+        plugins: { legend: { labels: { boxWidth: 12, font: { family: "Geist", size: 12 } } } },
+        scales: { y: { beginAtZero: true, grid: { color: "#F4F4F5" } }, x: { grid: { display: false } } },
       },
     });
   }
@@ -214,7 +217,7 @@
 
     const cityChart = state.charts.city;
     cityChart.data.datasets = [{
-      type: "bar", label: `City-wide ${m.label.toLowerCase()}`, data: city,
+      type: "bar", label: `City ${m.label.toLowerCase()}`, data: city,
       backgroundColor: years.map((y) => (y === state.year ? accent : m.classes[1].color)),
       borderRadius: 3,
     }];
@@ -230,7 +233,7 @@
         pointRadius: years.map((y) => (y === state.year ? 6 : 3)), spanGaps: false, tension: 0.2,
       },
     ].concat(m.rate ? [{
-      type: "line", label: "City-wide", data: city, borderColor: "#8996A0", borderDash: [5, 4], pointRadius: 0,
+      type: "line", label: "City", data: city, borderColor: "#8996A0", borderDash: [5, 4], pointRadius: 0,
     }] : []);
     setChartAxis(beatChart, m);
     beatChart.update();
@@ -241,6 +244,8 @@
   function buildShell(root) {
     const { years, metrics } = state.data.props;
     root.classList.add("cd");
+    root.classList.remove("map-loading");
+    root.removeAttribute("aria-busy");
     root.innerHTML = `
       <div class="cd__bar">
         <fieldset class="cd-seg"><legend>Metric</legend><div class="cd-seg__row">${metrics.map((m) =>
@@ -248,7 +253,7 @@
         <div class="cd-time">
           <span class="cd-time__legend">Year</span>
           <div class="cd-time__row">
-            <button type="button" class="cd-play" aria-label="Play years">▶</button>
+            <button type="button" class="cd-play" aria-label="Play years"><i class="ph ph-play" aria-hidden="true"></i></button>
             <input type="range" class="cd-slider" min="0" max="${years.length - 1}" step="1" value="${years.indexOf(state.year)}" aria-label="Year">
             <output class="cd-year"></output>
           </div>
@@ -257,11 +262,11 @@
       </div>
       <p class="cd-caution" hidden></p>
       <div class="cd__main">
-        <div class="cd__map" role="region" aria-label="Police-beat map"></div>
+        <div class="cd__map" role="region" aria-label="Police beat map"></div>
         <aside class="cd__panel"><div class="cd-legend" aria-live="polite"></div><div class="cd-ranking"></div></aside>
       </div>
       <div class="cd__charts">
-        <figure class="cd-chart"><figcaption>City-wide trend · click a year to show it on the map</figcaption><div class="cd-chart__box"><canvas></canvas></div></figure>
+        <figure class="cd-chart"><figcaption>City trend. Click a year to show it on the map</figcaption><div class="cd-chart__box"><canvas></canvas></div></figure>
         <figure class="cd-chart"><figcaption class="cd-beat-title"></figcaption><div class="cd-chart__box"><canvas></canvas></div></figure>
       </div>`;
     const q = (s) => root.querySelector(s);
@@ -311,7 +316,7 @@
         setYear(years[i]);
       }, PLAY_INTERVAL_MS);
     }
-    state.els.play.textContent = state.timer ? "❚❚" : "▶";
+    state.els.play.innerHTML = `<i class="ph ph-${state.timer ? "pause" : "play"}" aria-hidden="true"></i>`;
     state.els.play.setAttribute("aria-label", state.timer ? "Pause" : "Play years");
   }
 

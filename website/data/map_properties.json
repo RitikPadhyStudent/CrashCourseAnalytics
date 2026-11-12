@@ -24,7 +24,7 @@
       "field": "unique_collisions",
       "kind": "count",
       "rate": false,
-      "note": "Unique collision reports (distinct report_id) per beat-year.",
+      "note": "Unique collision reports (distinct report_id) per beat and year.",
       "classes": [
         {
           "name": "Very low",
@@ -159,7 +159,7 @@
       "field": "serious_fatal_records",
       "kind": "count",
       "rate": false,
-      "note": "Participants with serious/severe or fatal injuries per beat-year.",
+      "note": "Participants with serious/severe or fatal injuries per beat and year.",
       "classes": [
         {
           "name": "Zero",
@@ -204,7 +204,7 @@
       "field": "fatal_records",
       "kind": "count",
       "rate": false,
-      "note": "Participants with fatal injuries per beat-year.",
+      "note": "Participants with fatal injuries per beat and year.",
       "classes": [
         {
           "name": "Zero",

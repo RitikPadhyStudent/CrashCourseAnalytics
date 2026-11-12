@@ -1,0 +1,120 @@
+/* Correlation and regression charts (chapters 3 and 4). Classes use the "an" prefix; tokens come from base.css. */
+
+.chart-loading .skeleton { height: 640px; border-radius: var(--r-2xl); }
+
+.an {
+  border: 1px solid var(--line);
+  border-radius: var(--r-2xl);
+  background: var(--bg);
+}
+.an__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-200) var(--s-400);
+  padding: var(--s-300);
+  border-bottom: 1px solid var(--line);
+}
+.an__plot { min-width: 0; padding: var(--s-200) var(--s-300) var(--s-50); }
+.an__plot svg { display: block; overflow: visible; }
+.an__plot--scroll { overflow-x: auto; }
+.an__split { display: grid; grid-template-columns: minmax(0, 1fr) 360px; }
+.an__side { min-width: 0; padding: var(--s-200) var(--s-300); border-left: 1px solid var(--line); }
+.an__side svg { display: block; }
+
+.an-note { margin: 0; padding: var(--s-100) var(--s-300) var(--s-200); color: var(--text-2); font: var(--body-6); }
+.an__side .an-note { padding: var(--s-75) 0 0; }
+
+/* Segmented controls and checkboxes */
+.an .cd-seg { margin: 0; padding: 0; border: 0; min-width: 0; }
+.an .cd-seg legend { display: block; margin-bottom: var(--s-75); color: var(--text-3); font: var(--caption-4); }
+.an .cd-seg__row { display: flex; flex-wrap: wrap; gap: var(--s-75); }
+.an .cd-seg__opt { position: relative; }
+.an .cd-seg__opt input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.an .cd-seg__opt span {
+  display: block;
+  padding: var(--s-75) var(--s-100);
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  color: var(--text-2);
+  font: var(--title-4);
+  transition: background-color var(--fade) var(--ease), color var(--fade) var(--ease), border-color var(--fade) var(--ease);
+}
+.an .cd-seg__opt:hover input:not(:checked) + span { background: var(--surface-2); color: var(--text); }
+.an .cd-seg__opt input:checked + span { border-color: var(--text); background: var(--text); color: var(--bg); }
+.an .cd-seg__opt input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 2px; }
+.an .cd-seg__opt:active span { transform: scale(0.98); }
+.an-check { display: inline-flex; align-items: center; gap: var(--s-75); margin-top: var(--s-100); color: var(--text-2); font: var(--body-6); cursor: pointer; }
+.an-check input { margin: 0; accent-color: var(--text); }
+
+/* Legend and color scale */
+.an-legend { display: flex; flex-wrap: wrap; gap: var(--s-75) var(--s-300); padding: var(--s-200) var(--s-300) 0; color: var(--text-2); font: var(--body-6); }
+.an-legend span { display: inline-flex; align-items: center; gap: var(--s-75); }
+.an-dot { display: inline-block; width: 12px; height: 12px; border-radius: var(--r-full); }
+.an-dot--hollow { border: 2px solid; background: var(--bg); }
+.an-scale { display: flex; align-items: center; gap: var(--s-100); padding: var(--s-200) var(--s-300) 0; color: var(--text-3); font: var(--data-sm); }
+.an-scale ol { display: flex; gap: var(--s-25); margin: 0; padding: 0; list-style: none; }
+.an-scale li { width: 32px; height: 12px; border-radius: var(--r-sm); }
+
+/* SVG text */
+.an-axis { fill: var(--text-3); font: var(--data-sm); }
+.an-group { fill: var(--text-3); font: var(--caption-3); }
+.an-label { fill: var(--text); font: var(--body-6); }
+.an-label--sm { font: var(--caption-5); }
+.an-label--ns { fill: var(--text-3); }
+.an-label--y { font-weight: 600; }
+.an-label.is-hot { fill: var(--sev); font-weight: 600; }
+.an-value { fill: var(--text); font: var(--data-sm); }
+
+/* Hover and selection */
+.an-row { cursor: pointer; outline: none; }
+.an-row__hit { fill: transparent; transition: fill var(--fade) var(--ease); }
+.an-row:hover .an-row__hit, .an-row:focus-visible .an-row__hit, .an-row.is-selected .an-row__hit { fill: var(--surface-2); }
+.an-row:focus-visible .an-row__hit { stroke: var(--focus); stroke-width: 2; }
+.an-row.is-selected .an-label { font-weight: 600; }
+.an-cell { cursor: pointer; }
+.an-cell:hover rect, .an-cell.is-selected rect { stroke: var(--text); stroke-width: 2; }
+.an-pt { fill: var(--freq); fill-opacity: 0.7; stroke: var(--bg); stroke-width: 1.5; cursor: pointer; }
+.an-pt:hover { fill: var(--sev); fill-opacity: 1; }
+
+/* Scatter panel */
+.an-side__head { margin-bottom: var(--s-100); }
+.an-side__title { font: var(--title-3); }
+.an-side__meta { margin-top: var(--s-50); color: var(--text-2); font: var(--body-6); }
+
+/* Tooltip */
+.an-tip {
+  position: fixed;
+  z-index: 1200;
+  max-width: 320px;
+  padding: var(--s-100) var(--s-200);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  background: var(--bg);
+  box-shadow: 0 8px 24px rgba(10, 10, 10, 0.12);
+  color: var(--text);
+  font: var(--body-6);
+  pointer-events: none;
+}
+.an-tip p + p { margin-top: var(--s-50); }
+.an-tip__title { font: var(--title-4); }
+.an-tip__soft { color: var(--text-3); font: var(--caption-5); }
+.an-tip__note { padding-top: var(--s-75); border-top: 1px solid var(--line); color: var(--text-2); font: var(--caption-5); }
+
+/* Table view */
+.an-table { padding: var(--s-100) var(--s-300) var(--s-200); border-top: 1px solid var(--line); font: var(--body-6); }
+.an-table summary { color: var(--text); font: var(--title-4); cursor: pointer; }
+.an-table__scroll { margin-top: var(--s-100); overflow-x: auto; }
+.an-table table { width: 100%; border-collapse: collapse; }
+.an-table th, .an-table td { padding: var(--s-50) var(--s-100) var(--s-50) 0; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.an-table thead th { color: var(--text-3); font: var(--caption-4); }
+.an-table tbody th { font-weight: 400; }
+.an-table td { font: var(--data-sm); }
+
+@media (max-width: 900px) {
+  .an__split { grid-template-columns: 1fr; }
+  .an__side { border-left: 0; border-top: 1px solid var(--line); }
+}
+@media (max-width: 640px) {
+  .an__bar, .an__plot, .an__side { padding-left: var(--s-200); padding-right: var(--s-200); }
+  .chart-loading .skeleton { height: 480px; }
+}

@@ -1,0 +1,115 @@
+/* Chapter pages: progress, embedded dashboards, guides, findings, methods, takeaway and pager. */
+
+.section--flush { padding-top: 0; }
+.section--flush + .section { border-top: 0; }
+.note { margin-top: var(--s-100); color: var(--text-3); }
+
+/* Chapter progress under the page title */
+.progress {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s-75);
+  max-width: 680px;
+  margin: var(--s-500) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.progress a {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-75);
+  color: var(--text-3);
+  font: var(--caption-4);
+  text-decoration: none;
+  transition: color var(--fade) var(--ease);
+}
+.progress i { display: block; height: 4px; border-radius: var(--r-full); background: var(--line); }
+.progress .is-done i { background: var(--text-3); }
+.progress .is-current i { background: var(--text); }
+.progress .is-current a, .progress a:hover { color: var(--text); }
+
+/* Embedded Tableau dashboard */
+.embed { margin: 0; overflow: hidden; }
+.embed__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-100);
+  padding: var(--s-100) var(--s-300);
+  border-bottom: 1px solid var(--line);
+  color: var(--text-2);
+}
+.embed__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-50);
+  color: var(--text);
+  text-decoration: none;
+  transition: opacity var(--fade) var(--ease);
+}
+.embed__link:hover { color: var(--text); opacity: 0.7; }
+.embed__body { position: relative; min-height: 820px; background: var(--surface); }
+.embed__body tableau-viz { position: relative; display: block; width: 100%; height: 850px; }
+
+/* How to read the chart */
+.guide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-200); margin: var(--s-300) 0 0; padding: 0; list-style: none; }
+.guide li { padding: var(--s-300); }
+.guide p { margin-top: var(--s-50); color: var(--text-2); }
+
+/* Map findings, drawn by app.js */
+.cd-insights { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-400); }
+.cd-insights__section h3 { margin-bottom: var(--s-100); font: var(--title-2); }
+.cd-insights__section ul { margin: 0; padding: 0; list-style: none; }
+.cd-insights__section li { padding: var(--s-100) 0; border-top: 1px solid var(--line); color: var(--text-2); font: var(--body-6); }
+
+/* Methods */
+.method { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--s-600); }
+.method__head .eyebrow { margin-bottom: var(--s-75); }
+.method dl { display: grid; grid-template-columns: 112px 1fr; gap: var(--s-200) var(--s-300); margin: 0; }
+.method dt { color: var(--text); font: var(--title-4); }
+.method dd { margin: 0; color: var(--text-2); font: var(--body-6); }
+.limits { margin-top: var(--s-300); padding: var(--s-300); background: var(--surface); }
+.limits .caption-3 { color: var(--text-3); }
+.limits ul { margin: var(--s-75) 0 0; padding-left: var(--s-200); font: var(--body-6); }
+.limits li + li { margin-top: var(--s-75); }
+
+/* End of chapter summary */
+.takeaway { padding: var(--s-400); background: var(--surface); }
+.takeaway ul { max-width: 760px; margin: var(--s-200) 0 0; padding-left: var(--s-300); }
+.takeaway li { color: var(--text-2); }
+.takeaway li + li { margin-top: var(--s-75); }
+.takeaway strong { color: var(--text); font-weight: 600; }
+.takeaway__next { margin-top: var(--s-300); padding-top: var(--s-300); border-top: 1px solid var(--line); }
+.takeaway__next .caption-3 { color: var(--text-3); }
+.takeaway__next .title-2 { max-width: 680px; margin: var(--s-75) 0 var(--s-200); }
+
+/* Previous and next chapter */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-200); padding-top: 0; padding-bottom: var(--s-700); }
+.pager__link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-75);
+  padding: var(--s-300);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color var(--fade) var(--ease), transform var(--move) var(--ease);
+}
+.pager__link .caption-4 { display: inline-flex; align-items: center; gap: var(--s-50); color: var(--text-3); }
+.pager__link:hover { border-color: var(--line-strong); color: var(--text); transform: translateY(calc(var(--s-25) * -1)); }
+.pager__link:active { transform: scale(0.98); }
+.pager__link--next { grid-column: 2; align-items: flex-end; text-align: right; }
+
+@media (max-width: 900px) {
+  .guide, .cd-insights, .method, .pager { grid-template-columns: 1fr; }
+  .pager__link--next { grid-column: auto; }
+  .method { gap: var(--s-300); }
+}
+@media (max-width: 640px) {
+  .progress span { display: none; }
+  .method dl { grid-template-columns: 1fr; gap: var(--s-50); }
+  .method dd { margin-bottom: var(--s-100); }
+  .takeaway { padding: var(--s-300); }
+  .embed__body { min-height: 640px; }
+  .embed__body tableau-viz { height: 640px; }
+}
